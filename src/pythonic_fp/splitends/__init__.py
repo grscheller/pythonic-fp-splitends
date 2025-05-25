@@ -13,18 +13,18 @@
 # limitations under the License.
 
 """
-### Developer Tools - splitends
+### Pythonic FP - splitends
 
 Package implementing a singularly linked LIFO queue called a SplitEnd. These
 data structures can safely share data nodes between themselves.
 
-- *class* dtools.splitends.splitend.SplitEnd: Mutable stack (LIFO)
+- *class* pythonic_fp.splitends.splitend.SplitEnd: Mutable stack (LIFO)
   - which allow for data sharing between different instances
   - each splitend sees itself as a singularly linked list
     - from the "end" of the hair to its "root"
   - multiple instances can form bush like data structures
     - like follicles of hair with split ends
-- *class* dtools.splitends.splitend_node.SENode
+- *class* pythonic_fp.splitends.splitend_node.SENode
   - data nodes for SplitEnd stacks
 
 """

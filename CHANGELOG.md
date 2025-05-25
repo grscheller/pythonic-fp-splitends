@@ -1,6 +1,6 @@
 # CHANGELOG
 
-PyPI dtools.splitends project.
+PyPI pythonic-fp.splitends project.
 
 - Strict 3 digit semantic versioning (adopted 2025-05-19)
   - MAJOR version for incompatible API changes

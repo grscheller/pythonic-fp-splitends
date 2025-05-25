@@ -13,8 +13,8 @@
 # limitations under the License.
 
 from __future__ import annotations
-from dtools.containers.maybe import MayBe as MB
-from dtools.splitends.splitend_node import SENode as Node
+from pythonic_fp.containers.maybe import MayBe as MB
+from pythonic_fp.splitends.splitend_node import SENode as Node
 
 class Test_Node:
     def test_bool(self) -> None:

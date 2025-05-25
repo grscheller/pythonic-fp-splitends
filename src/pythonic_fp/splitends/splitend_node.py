@@ -23,7 +23,7 @@ other data structures which contain these data structures.
 from __future__ import annotations
 from collections.abc import Callable, Hashable, Iterator
 from typing import cast, TypeVar
-from dtools.containers.maybe import MayBe as MB
+from pythonic_fp.containers.maybe import MayBe as MB
 
 __all__ = ['SENode']
 

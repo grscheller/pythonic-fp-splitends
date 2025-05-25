@@ -29,7 +29,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Hashable, Iterator
 from typing import Never, TypeVar
-from dtools.containers.maybe import MayBe as MB
+from pythonic_fp.containers.maybe import MayBe as MB
 from .splitend_node import SENode as Node
 
 __all__ = ['SplitEnd']

@@ -13,8 +13,8 @@
 # limitations under the License.
 
 from __future__ import annotations
-from dtools.splitends.splitend import SplitEnd as SE
-from dtools.iterables import concat
+from pythonic_fp.splitends.splitend import SplitEnd as SE
+from pythonic_fp.iterables import concat
 
 class Test_SplitEnds:
     def test_mutate_returns_none(self) -> None:
