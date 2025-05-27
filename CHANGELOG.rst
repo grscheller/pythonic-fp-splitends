@@ -205,8 +205,8 @@ Version 0.10.14.0 - commit date 2023-12-09
     - ``queue``
 
       - ``FIFOQueue`` (formerly ``SQueue``)
-      - ``LIFOQueue`` (LIFO version of above)
-      - ``DoubleQueue`` (formerly DQueue)
+      - ``LIFOQueue`` (lifo version of above)
+      - ``DoubleQueue`` (formerly ``DQueue``)
 
     - ``stack``
 
@@ -247,7 +247,7 @@ Version 0.10.1.0 - commit date 2023-11-11
 - Removed flatMap methods from stateful objects
 
   - ``FLArray``, ``DQueue``, ``SQueue``, ``PStack``
-  - kept the map method for each
+  - kept the ``map`` method for each
 
 - some restructuring so package will scale better in the future
 
@@ -380,6 +380,7 @@ Version 0.6.8.6 - commit date: 2023-10-08
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - 3 new methods for class ``Circle`` and ``Dqueue``
+
   - ``mapSelf``, ``flatMapSelf``, ``mergeMapSelf``
 
     - these correspond to ``map``, ``flatMap``, ``mergeMap``
