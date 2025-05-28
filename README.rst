@@ -6,7 +6,7 @@ Singularly linked data structures allowing data to be safely shared
 between multiple instances.
 
 This project is part of the
-`PyPI pythonic-fp Namespace Projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_.
+`PyPI pythonic-fp Namespace Projects <https://github.com/grscheller/pythonic-fp/blob/main/README.rst>`_.
 
 Detailed API documentation
 `documentation <https://grscheller.github.io/pythonic-fp/maintained/splitends>`_

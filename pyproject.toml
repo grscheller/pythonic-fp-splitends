@@ -7,7 +7,7 @@ name = "pythonic-fp.splitends"
 version = "0.30.0"
 authors = [{ name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" }]
 license = { file = "LICENSE" }
-readme = "README.md"
+readme = "README.rst"
 requires-python = ">=3.12"
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -35,9 +35,9 @@ test = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/grscheller/pythonic-fp/blob/main/README.md"
+Homepage = "https://github.com/grscheller/pythonic-fp/blob/main/README.rst"
 Source = "https://github.com/grscheller/pythonic-fp-splitends"
-Changelog = "https://github.com/grscheller/pythonic-fp-splitends/blob/main/CHANGELOG.md"
+Changelog = "https://github.com/grscheller/pythonic-fp-splitends/blob/main/CHANGELOG.rst"
 Documentation = "https://grscheller.github.io/pythonic-fp/maintained/splitends"
 
 [tool.flit.sdist]
