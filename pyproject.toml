@@ -10,29 +10,20 @@ license = { file = "LICENSE" }
 readme = "README.rst"
 requires-python = ">=3.12"
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Framework :: Pytest",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: Apache Software License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.13",
-    "Typing :: Typed",
+  "Development Status :: 3 - Alpha",
+  "Framework :: Pytest",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
 ]
 dynamic = ["description"]
-keywords = [
-    "lifo",
-    "stack",
-    "SplitEnd",
-]
-dependencies = [
-    "pythonic-fp.containers >=2.0.0, <2.1",
-]
+keywords = ["lifo", "stack", "SplitEnd"]
+dependencies = ["pythonic-fp.containers >=2.0.0, <2.1"]
 
 [project.optional-dependencies]
-test = [
-    "pytest >=8.3.5",
-    "pythonic-fp.iterables >=3.0.0, <3.1",
-]
+test = ["pytest >=8.3.5", "pythonic-fp.iterables >=3.0.0, <3.1"]
 
 [project.urls]
 Homepage = "https://github.com/grscheller/pythonic-fp/blob/main/README.rst"
