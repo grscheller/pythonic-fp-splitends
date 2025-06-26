@@ -32,7 +32,7 @@ and subject to change. It will probably remain Alpha for quite a while.
 - *module* ``pythonic_fp.splitends.splitend_node``
 - *class* ``SENode``: Shareable nodes used by SplitEnd instances
   - This class is designed to be inaccessible to client code
-  - It is intended to be a implementation detail for the ``SplitEnd`` class
+  - It is intended to be an implementation detail for the ``SplitEnd`` class
 
 ## Installation:
 
