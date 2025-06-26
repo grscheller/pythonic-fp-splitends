@@ -12,7 +12,7 @@ Detailed API documentation
 [documentation](https://grscheller.github.io/pythonic-fp/maintained/splitends)
 on *GH-Pages*.
 
-## Features
+## Features:
 
 Stateful singularly linked data structures allowing data to be safely shared
 between multiple instances by making shared data immutable and inaccessible to
@@ -34,13 +34,13 @@ and subject to change. It will probably remain Alpha for quite a while.
   - This class is designed to be inaccessible to client code
   - It is intended to be a implementation detail for the ``SplitEnd`` class
 
-## Installation
+## Installation:
 
 ```
     $ pip install pythonic-fp.splitends
 ```
 
-## Contribute
+## Contribute:
 
 - Project on PyPI: https://pypi.org/project/pythonic-fp.splitends
 - Source Code: https://github.com/grscheller/pythonic-fp-splitends
@@ -50,7 +50,7 @@ and subject to change. It will probably remain Alpha for quite a while.
 
 | Contributors | Name | Role |
 |:------------ |:---- |:---- |
-| [@grscheller](https://github.com/grscheller) | Geoffrey R. Scheller | author, maintainer |
+| [grscheller](https://github.com/grscheller) | Geoffrey R. Scheller | author, maintainer |
 
 ### License Information
 
