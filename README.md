@@ -16,7 +16,7 @@ safely shared between multiple instances.
       - this class is designed to be inaccessible to client code
 
 This PyPI project is part of of the grscheller
-[pythonic-fp namespace projects](https://grscheller.github.io/pythonic-fp/).
+[pythonic-fp namespace projects](https://github.com/grscheller/pythonic-fp/blob/main/README.md).
 
 **Warning:** This PyPI project is Alpha level software and subject to
 change. It will probably remain Alpha for quite a while.
