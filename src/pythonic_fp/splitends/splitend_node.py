@@ -12,12 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-### Data node class used privately by class SplitEnd
+"""Data node class used privately by class SplitEnd.
 
 Node classes used with graph-like data structures. API designed to be used by
 other data structures which contain these data structures.
-
 """
 
 from __future__ import annotations
@@ -37,17 +35,23 @@ class SENode[D]:
     - hashable data node for a end-to-root singularly linked list.
     - designed so multiple splitends can safely share the same data
     - this type of node always
+
       - contain data
       - potential link to previous node
+
     - nodes point towards a unique "bottom node" with no predecessor
+
       - in a Boolean context returns true if not at the bottom
       - multiple bottom nodes can exist
+
     - two nodes compare as equal if
+
       - both their previous Nodes are the same
       - their data compares as equal
-    - more than one node can point to the same proceeding node
-      - forming bush like graphs
 
+    - more than one node can point to the same proceeding node
+
+      - forming bush like graphs
     """
 
     __slots__ = '_data', '_prev'
@@ -92,9 +96,7 @@ class SENode[D]:
         """Reduce data across linked nodes.
 
         - with a function and an optional starting value
-        - reduces in natural LIFO order
-          - from self to the root
-
+        - reduces in natural LIFO order, from self to the root
         """
         if init is None:
             acc: T = cast(T, self._data)

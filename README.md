@@ -1,7 +1,7 @@
 # Pythonic FP - SplitEnds
 
 PyPI project
-[pythonic-fp.splitens](https://pypi.org/project/pythonic-fp.splitends/)
+[pythonic-fp.splitends](https://pypi.org/project/pythonic-fp.splitends/)
 implementing a singularly linked data structures allowing data to be
 safely shared between multiple instances.
 

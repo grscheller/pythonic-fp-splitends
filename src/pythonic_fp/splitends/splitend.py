@@ -12,17 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-### SplitEnd stack related data structures
+"""SplitEnd stack related data structures
 
 With use I am finding this data structure needs some sort of supporting
 infrastructure. Hence I split the original splitend module out to be its own
 subpackage.
-
-#### SplitEnd Stack type
-
-- class SplitEnd: Singularly linked stack with shareable data nodes
-
 """
 
 from __future__ import annotations
@@ -39,9 +33,7 @@ T = TypeVar('T')
 
 
 class SplitEnd[D]:
-    """Class SplitEnd
-
-    LIFO stacks which can safely share immutable data between themselves.
+    """LIFO stacks which can safely share immutable data between themselves.
 
     - each SplitEnd is a very simple stateful (mutable) LIFO stack
     - data can be pushed and popped to the stack
@@ -51,9 +43,7 @@ class SplitEnd[D]:
     - bush-like datastructures can be formed using multiple SplitEnds
     - len() returns the number of elements on the SplitEnd stack
     - in boolean context, return true if split end is not the "root"
-
     """
-
     __slots__ = '_count', '_top', '_root'
 
     def __init__(self, root_data: D, *ds: D) -> None:
@@ -112,9 +102,7 @@ class SplitEnd[D]:
 
     def pop(self) -> D | Never:
         """Pop data off of the top of the SplitEnd.
-
-        - re-root SplitEnd if root is popped off.
-
+        Re-root SplitEnd if root is popped off.
         """
         data, self._top, self._count = self._top.get().pop2() + (self._count - 1,)
         if self._count == 0:
@@ -130,7 +118,6 @@ class SplitEnd[D]:
 
         - O(1) space & time complexity.
         - returns a new instance with same data, including the root
-
         """
         se: SplitEnd[D] = SplitEnd(self._root.get().peak())
         se._count, se._top, se._root = self._count, self._top, self._root

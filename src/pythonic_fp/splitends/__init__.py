@@ -12,21 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-### Pythonic FP - splitends
+"""Pythonic FP - Splitends
 
 Package implementing a singularly linked LIFO queue called a SplitEnd. These
 data structures can safely share data nodes between themselves.
-
-- *class* pythonic_fp.splitends.splitend.SplitEnd: Mutable stack (LIFO)
-  - which allow for data sharing between different instances
-  - each splitend sees itself as a singularly linked list
-    - from the "end" of the hair to its "root"
-  - multiple instances can form bush like data structures
-    - like follicles of hair with split ends
-- *class* pythonic_fp.splitends.splitend_node.SENode
-  - data nodes for SplitEnd stacks
-
 """
 
 __author__ = 'Geoffrey R. Scheller'
