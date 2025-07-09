@@ -23,8 +23,9 @@ change. It will probably remain Alpha for quite a while.
 
 ## Documentation
 
-Documentation hosted on
-[GitHub Pages](https://grscheller.github.io/pythonic-fp-splitends/html).
+Documentation for package
+[GitHub Pages](https://grscheller.github.io/pythonic-fp-splitends/html/api_pypi.html)
+hosted on GitHub pages.
 
 ## Copyright and License
 
