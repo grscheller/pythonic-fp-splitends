@@ -24,7 +24,7 @@ change. It will probably remain Alpha for quite a while.
 ## Documentation
 
 Documentation for package
-[GitHub Pages](https://grscheller.github.io/pythonic-fp-splitends/html/api_pypi.html)
+[GitHub Pages](https://grscheller.github.io/pythonic-fp/splitends/API/development/build/html)
 hosted on GitHub pages.
 
 ## Copyright and License
