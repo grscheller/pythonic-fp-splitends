@@ -20,7 +20,7 @@ dynamic = ["description"]
 
 [project.urls]
 Changelog = "https://github.com/grscheller/pythonic-fp-splitends/blob/main/CHANGELOG.rst"
-Documentation = "https://grscheller.github.io/pythonic-fp/splitends/API/v0.30.0/build/html/"
+Documentation = "https://grscheller.github.io/pythonic-fp/splitends/API/development/build/html/releases.html"
 Homepage = "https://github.com/grscheller/pythonic-fp/blob/main/README.md"
 Source = "https://github.com/grscheller/pythonic-fp-splitends"
 
