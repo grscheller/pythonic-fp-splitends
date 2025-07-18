@@ -21,7 +21,7 @@ other data structures which contain these data structures.
 from __future__ import annotations
 from collections.abc import Callable, Hashable, Iterator
 from typing import cast, TypeVar
-from pythonic_fp.containers.maybe import MayBe as MB
+from pythonic_fp.containers.maybe import MayBe
 
 __all__ = ['SENode']
 
@@ -34,15 +34,15 @@ class SENode[D]:
 
     - hashable data node for a end-to-root singularly linked list.
     - designed so multiple splitends can safely share the same data
-    - this type of node always
+    - this type of node always contains
 
-      - contain data
-      - potential link to previous node
+      - data
+      - potential link to a previous node
 
     - nodes point towards a unique "bottom node" with no predecessor
 
       - in a Boolean context returns true if not at the bottom
-      - multiple bottom nodes can exist
+      - different splitends do not have to have the same bottom node
 
     - two nodes compare as equal if
 
@@ -52,13 +52,14 @@ class SENode[D]:
     - more than one node can point to the same proceeding node
 
       - forming bush like graphs
+
     """
 
     __slots__ = '_data', '_prev'
 
-    def __init__(self, data: D, prev: MB[SENode[D]] = MB()) -> None:
+    def __init__(self, data: D, prev: SENode[D] | None = None) -> None:
         self._data: D = data
-        self._prev: MB[SENode[D]] = prev
+        self._prev: MayBe[SENode[D]] = MayBe(prev) if prev is not None else MayBe()
 
     def __iter__(self) -> Iterator[D]:
         node = self
@@ -68,7 +69,7 @@ class SENode[D]:
         yield node._data
 
     def __bool__(self) -> bool:
-        return self._prev != MB()
+        return self._prev != MayBe()
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, type(self)):
@@ -84,19 +85,35 @@ class SENode[D]:
         """Return contained data"""
         return self._data
 
-    def pop2(self) -> tuple[D, MB[SENode[D]]]:
-        """Return the data at the *end* and potential *tail*."""
-        return self._data, self._prev
+    def pop2(self) -> tuple[D, SENode[D]]:
+        """Return the data at the tip and the tail of the senode."""
+        if self._prev:
+            return self._data, self._prev.get()
+        return self._data, self
 
     def push(self, data: D) -> SENode[D]:
         """Push data onto the queue and return a new node containing the data."""
-        return SENode(data, MB(self))
+        return SENode(data, self)
 
-    def fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
-        """Reduce data across linked nodes.
+    def fold[T](
+            self,
+            f: Callable[[T, D], T],
+            init: T | None = None
+        ) -> T:
+        """Fold data across linked nodes with a function..
 
-        - with a function and an optional starting value
-        - reduces in natural LIFO order, from self to the root
+        .. code:: python
+
+            def fold[T](
+                    self,
+                    f: Callable([T, D], T],
+                    init: T | None = None
+            ) -> T
+
+        :param f: folding function, first argument is for accumulated value
+        :param init: optional initial starting value for the fold
+        :return: reduced value folding from end to root in natural LIFO order
+
         """
         if init is None:
             acc: T = cast(T, self._data)

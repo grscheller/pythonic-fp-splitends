@@ -19,48 +19,48 @@ from pythonic_fp.iterables import concat
 class Test_SplitEnds:
     def test_mutate_returns_none(self) -> None:
         ps = SE(41)
-        assert ps.push(1,2,3) is None  # type: ignore[func-returns-value]
+        assert ps.extend(1,2,3) is None  # type: ignore[func-returns-value]
 
-    def test_pushThenPop(self) -> None:
+    def test_wxtend_then_snip(self) -> None:
         s1 = SE(42)
         pushed = 21
-        s1.push(pushed)
-        popped = s1.pop()
+        s1.extend(pushed)
+        popped = s1.snip()
         assert pushed == popped == 21
 
-    def test_popFromOneElementSplitEnd(self) -> None:
+    def test_pop_from_one_element_splitend(self) -> None:
         s1 = SE[int](42)
         try:
-            assert s1.pop() == 42
-            assert s1.pop() == 42
+            assert s1.snip() == 42
+            assert s1.snip() == 42
         except ValueError:
             assert False
         else:
-            assert s1.pop() == 42
+            assert len(s1) == 1
 
-    def test_SplitEndPushPop(self) -> None:
+    def test_splitend_extend_snip(self) -> None:
         s1 = SE(101)
         s2 = SE(*range(0,2000))
 
         assert len(s1) == 1
         assert len(s2) == 2000
-        s1.push(42)
-        assert s2.pop() == 1999
-        assert s2.pop() == 1998
+        s1.extend(42)
+        assert s2.snip() == 1999
+        assert s2.snip() == 1998
         assert len(s1) == 2
         assert len(s2) == 1998
-        assert s1.pop() == 42
-        assert s1.pop() == 101     # re-rooted
-        s1.push(12, 13, 14)
+        assert s1.snip() == 42
+        assert s1.snip() == 101     # re-rooted
+        s1.extend(12, 13, 14)
         assert len(s1) == 4
-        assert s1.pop() == 14
-        assert s1.pop() == 13
+        assert s1.snip() == 14
+        assert s1.snip() == 13
         assert len(s1) == 2
-        assert s1.pop() == 12
+        assert s1.snip() == 12
         assert len(s1) == 1
-        assert s1.pop() == 101
+        assert s1.snip() == 101
         assert len(s1) == 1
-        assert s1.pop() == 101
+        assert s1.snip() == 101
         assert len(s1) == 1
 
 
@@ -73,16 +73,16 @@ class Test_SplitEnds:
             assert True
 
         assert len(s1) == 1
-        assert s1.pop() is None
+        assert s1.snip() is None
         assert len(s1) == 1
-        assert s1.pop() is None
+        assert s1.snip() is None
         assert len(s1) == 1
         assert len(s2) == 2
-        assert s2.pop() == 42
+        assert s2.snip() == 42
         assert len(s2) == 1
-        assert s2.pop() is None
+        assert s2.snip() is None
         assert len(s2) == 1
-        assert s2.pop() is None
+        assert s2.snip() is None
         assert len(s2) == 1
 
         s2001: SE[int] = SE(*range(1,2001))
@@ -94,22 +94,22 @@ class Test_SplitEnds:
         s3 = s2001.copy()
         assert len(s3) == 2000
         assert s3 == s2001
-        assert s3.pop() == 2000
-        assert s3.pop() == 1999
+        assert s3.snip() == 2000
+        assert s3.snip() == 1999
         assert s3 != s2001
-        assert s2001.pop() == 2000
-        assert s2001.pop() == 1999
-        assert s2001.pop() == 1998
+        assert s2001.snip() == 2000
+        assert s2001.snip() == 1999
+        assert s2001.snip() == 1998
         assert s3 != s2001
-        assert s3.pop() == 1998
+        assert s3.snip() == 1998
         assert s3 == s2001
         assert s2001.peak() == 1997
         assert len(s3) == 1997
         assert len(s2001) == 1997
 
-    def test_stackIter(self) -> None:
+    def test_iteration(self) -> None:
         giantSplitEnd: SE[str] = SE(' Fum', ' Fo', ' Fi', 'Fe')
-        giantTalk = giantSplitEnd.pop()
+        giantTalk = giantSplitEnd.snip()
         assert giantTalk == "Fe"
         for giantWord in giantSplitEnd:
             giantTalk += giantWord
@@ -123,10 +123,10 @@ class Test_SplitEnds:
     def test_equality(self) -> None:
         s1 = SE(*range(3))
         s2 = s1.copy()
-        s2.push(42)
+        s2.extend(42)
         assert s1 is not s2
         assert s1 != s2
-        assert s2.pop() == 42
+        assert s2.snip() == 42
         assert s1 == s2
         assert s2 is not s1
         assert s2.peak() == 2
@@ -136,9 +136,9 @@ class Test_SplitEnds:
         assert s3 is not s4
         assert s3 == s4
 
-        s3.push(s4.pop())
-        assert s3.pop() == 10000
-        assert s3.pop() == 10000
+        s3.extend(s4.snip())
+        assert s3.snip() == 10000
+        assert s3.snip() == 10000
         assert s3 == s4
         assert s3 is not s4
 
@@ -146,62 +146,62 @@ class Test_SplitEnds:
         s6 = SE(1,2,3,42)
         assert s5 != s6
         for ii in range(10):
-            s5.push(ii)
-            s6.push(ii)
+            s5.extend(ii)
+            s6.extend(ii)
         assert s5 != s6
 
         ducks: tuple[str, ...] = ("Huey", "Dewey")
         s7 = SE((), ducks)
         s8 = SE((), ducks)
         s9 = s8.copy()
-        s9.push(("Huey", "Dewey", "Louie"))
+        s9.extend(("Huey", "Dewey", "Louie"))
         assert s7 == s8
         assert s7 != s9
         assert s7.peak() == s8.peak()
         assert s7.peak() != s9.peak()
         ducks = ducks + ("Louie",)
-        s7.push(ducks)
+        s7.extend(ducks)
         assert s7 != s8
         assert s7 == s9
         stouges = ('Moe', 'Larry', 'Curlie')
-        s7.push(stouges)
+        s7.extend(stouges)
         assert s7 != s9
-        s9.push(('Moe', 'Larry', 'Curlie'))
+        s9.extend(('Moe', 'Larry', 'Curlie'))
         assert s7 == s9
         assert s7 is not s9
         assert s7.peak() == s9.peak()
 
-    def test_storeNones(self) -> None:
+    def test_storing_Nones(self) -> None:
         s0: SE[int|None] = SE(100)
-        s0.push(None)
-        s0.push(42)
-        s0.push(None)
-        s0.push(42)
-        s0.push(None)
+        s0.extend(None)
+        s0.extend(42)
+        s0.extend(None)
+        s0.extend(42)
+        s0.extend(None)
         assert len(s0) == 6
         while s0:
             assert s0
-            s0.pop()
+            s0.snip()
         assert not s0
 
         s1: SE[int|None] = SE(None)
-        s1.push(24)
+        s1.extend(24)
         s2 = s1.copy()
-        s2.push(42)
-        s1.push(42)
+        s2.extend(42)
+        s1.extend(42)
         assert s1 == s2
         assert len(s1) == len(s2) == 3
         s3 = s2.copy()
-        s3.push(None)
+        s3.extend(None)
         assert s3.peak() is None
         assert s3
         assert len(s3) == 4
-        assert s3.pop() is None
-        assert s3.pop() == 42
-        assert s3.pop() == 24
-        assert s3.pop() is None
+        assert s3.snip() is None
+        assert s3.snip() == 42
+        assert s3.snip() == 24
+        assert s3.snip() is None
         assert len(s3) == 1
-        s3.push(42)
+        s3.extend(42)
         s4 = SE(None, 42)
         assert s3 == s4
 

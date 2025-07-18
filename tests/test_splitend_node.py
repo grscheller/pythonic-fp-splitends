@@ -14,20 +14,20 @@
 
 from __future__ import annotations
 from pythonic_fp.containers.maybe import MayBe as MB
-from pythonic_fp.splitends.splitend_node import SENode as Node
+from pythonic_fp.splitends.splitend_node import SENode
 
 class Test_Node:
     def test_bool(self) -> None:
-        n1 = Node(1, MB())
-        n2 = Node(2, MB(n1))
+        n1 = SENode(1)
+        n2 = SENode(2, n1)
 
         assert not n1
         assert n2
 
     def test_linking(self) -> None:
-        n1 = Node(1, MB())
-        n2 = Node(2, MB(n1))
-        n3 = Node(3, MB(n2))
+        n1 = SENode(1)
+        n2 = SENode(2, n1)
+        n3 = SENode(3, n2)
 
         assert n3._data == 3
         assert n3._prev != MB()
@@ -41,11 +41,11 @@ class Test_Node:
         assert n3._prev.get()._prev == n2._prev
 
     def test_iter(self) -> None:
-        n1 = Node(1, MB())
-        n2 = Node(2, MB(n1))
-        n3 = Node(3, MB(n2))
-        n4 = Node(4, MB(n3))
-        n5 = Node(5, MB(n4))
+        n1 = SENode(1)
+        n2 = SENode(2, n1)
+        n3 = SENode(3, n2)
+        n4 = SENode(4, n3)
+        n5 = SENode(5, n4)
 
         value = 5
         for ii in n5:
@@ -53,24 +53,24 @@ class Test_Node:
             value -= 1
 
     def test_eq(self) -> None:
-        a1 = Node(1, MB())
-        a2 = Node(2, MB(a1))
-        a3 = Node(3, MB(a2))
-        a4 = Node(4, MB(a3))
-        a5 = Node(5, MB(a4))
+        a1 = SENode(1)
+        a2 = SENode(2, a1)
+        a3 = SENode(3, a2)
+        a4 = SENode(4, a3)
+        a5 = SENode(5, a4)
         
-        b1 = Node(1, MB())
-        b2 = Node(2, MB(b1))
-        b3 = Node(3, MB(b2))
-        b4 = Node(4, MB(b3))
+        b1 = SENode(1)
+        b2 = SENode(2, b1)
+        b3 = SENode(3, b2)
+        b4 = SENode(4, b3)
 
-        c2 = Node(2, MB(b1))
-        c3 = Node(3, MB(b1))
+        c2 = SENode(2, b1)
+        c3 = SENode(3, b1)
 
-        d2 = Node(2, MB(a1))
-        d3 = Node(3, MB(d2))
-        d4 = Node(42, MB(d3))
-        d5 = Node(5, MB(d4))
+        d2 = SENode(2, a1)
+        d3 = SENode(3, d2)
+        d4 = SENode(42, d3)
+        d5 = SENode(5, d4)
 
         assert a1 == a1
         assert a1 != a2
@@ -86,20 +86,20 @@ class Test_Node:
         assert d5 != a5
 
     def test_fold(self) -> None:
-        a1 = Node(1, MB())
-        a2 = Node(2, MB(a1))
-        a3 = Node(3, MB(a2))
-        a4 = Node(4, MB(a3))
-        a5 = Node(5, MB(a4))
+        a1 = SENode(1)
+        a2 = SENode(2, a1)
+        a3 = SENode(3, a2)
+        a4 = SENode(4, a3)
+        a5 = SENode(5, a4)
 
         assert a4.fold(lambda x,y: x+y) == 10
         assert a4.fold(lambda x,y: x+y, 32) == 42
         assert a5.fold(lambda x,y: x+y) == 15
 
-        b1 = Node(1, MB())
-        b2 = Node(2, MB(b1))
-        b3 = Node(5, MB(b2))
-        b4 = Node(2, MB(b3))
+        b1 = SENode(1)
+        b2 = SENode(2, b1)
+        b3 = SENode(5, b2)
+        b4 = SENode(2, b3)
 
         assert b4.fold(lambda x,y: x*y) == 20
         assert b4.fold(lambda x,y: x*y, 2.1) == 42.0

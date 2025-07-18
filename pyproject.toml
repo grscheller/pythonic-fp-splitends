@@ -1,6 +1,6 @@
 [project]
 name = "pythonic-fp.splitends"
-version = "0.30.0"
+version = "1.0.0"
 readme = "README.md"
 requires-python = ">=3.12"
 license = { file = "LICENSE" }
@@ -44,7 +44,6 @@ enabled = true
 live-mode = true
 strict = true
 report_progress = true
-exclude = ["tests/.*"]
 
 [tool.pytest.ini_options]
 consider_namespace_packages = true

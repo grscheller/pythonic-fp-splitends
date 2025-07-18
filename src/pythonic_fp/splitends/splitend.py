@@ -12,57 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""SplitEnd stack related data structures
-
-With use I am finding this data structure needs some sort of supporting
-infrastructure. Hence I split the original splitend module out to be its own
-subpackage.
-"""
-
 from __future__ import annotations
 
 from collections.abc import Callable, Hashable, Iterator
-from typing import Never, TypeVar
-from pythonic_fp.containers.maybe import MayBe as MB
-from .splitend_node import SENode as Node
+from typing import TypeVar
+from .splitend_node import SENode
 
 __all__ = ['SplitEnd']
 
 D = TypeVar('D', bound=Hashable)
-T = TypeVar('T')
 
 
 class SplitEnd[D]:
-    """LIFO stacks which can safely share immutable data between themselves.
+    """LIFO stacks safely sharing immutable data between themselves."""
 
-    - each SplitEnd is a very simple stateful (mutable) LIFO stack
-    - data can be pushed and popped to the stack
-    - the first value pushed onto the SplitEnd becomes it "root"
-    - different mutable split ends can safely share the same "tail"
-    - each SplitEnd sees itself as a singularly linked list
-    - bush-like datastructures can be formed using multiple SplitEnds
-    - len() returns the number of elements on the SplitEnd stack
-    - in boolean context, return true if split end is not the "root"
-    """
-    __slots__ = '_count', '_top', '_root'
+    __slots__ = '_count', '_tip', '_root'
 
     def __init__(self, root_data: D, *ds: D) -> None:
-        node = Node(root_data, MB[Node[D]]())
-        self._root = MB(node)
-        self._top, self._count = self._root, 1
+        node: SENode[D] = SENode(root_data)
+        self._root = node
+        self._tip, self._count = node, 1
         for d in ds:
-            node = Node(d, self._top)
-            self._top, self._count = MB(node), self._count + 1
+            node = SENode(d, self._tip)
+            self._tip, self._count = node, self._count + 1
 
     def __iter__(self) -> Iterator[D]:
-        return iter(self._top.get())
+        return iter(self._tip)
 
     def __reversed__(self) -> Iterator[D]:
         return reversed(list(self))
 
     def __bool__(self) -> bool:
         # Returns true until all data is exhausted
-        return bool(self._top.get())
+        return bool(self._tip)
 
     def __len__(self) -> int:
         return self._count
@@ -82,8 +64,8 @@ class SplitEnd[D]:
         if self._root != other._root:
             return False
 
-        left = self._top.get()
-        right = other._top.get()
+        left = self._tip
+        right = other._tip
         for _ in range(self._count):
             if left is right:
                 return True
@@ -94,40 +76,82 @@ class SplitEnd[D]:
                 right = right._prev.get()
         return True
 
-    def push(self, *ds: D) -> None:
-        """Push data onto the top of the SplitEnd."""
-        for d in ds:
-            node = Node(d, self._top)
-            self._top, self._count = MB(node), self._count + 1
+    def extend(self, *ds: D) -> None:
+        """Add data onto the top of the SplitEnd.
 
-    def pop(self) -> D | Never:
-        """Pop data off of the top of the SplitEnd.
-        Re-root SplitEnd if root is popped off.
+        .. code:: python
+
+            def extend(self, *ds: D) -> None
+
+        :param ds: data to be added to end of splitend
+
         """
-        data, self._top, self._count = self._top.get().pop2() + (self._count - 1,)
-        if self._count == 0:
-            self._count, self._top = 1, self._root
+        for d in ds:
+            node = SENode(d, self._tip)
+            self._tip, self._count = node, self._count + 1
+
+    def snip(self) -> D:
+        """Snip data off tip of SplitEnd. Just return data if tip is root.
+
+        .. code:: python
+
+            def snip(self) -> D
+
+        :return: data snipped off tip, otherwise root data if tip is root
+
+        """
+        if self._count > 1:
+            data, self._tip, self._count = self._tip.pop2() + (self._count - 1,)
+        else:
+            data = self._tip.peak()
+
         return data
 
     def peak(self) -> D:
-        """Return the data at the top of the SplitEnd, doesn't consume it."""
-        return self._top.get().peak()
+        """Return data from tip of SplitEnd, do not consume it.
+
+        .. code:: python
+
+            def peak(self) -> D
+
+        :return: data at the end of the SplitEnd
+
+        """
+        return self._tip.peak()
 
     def copy(self) -> SplitEnd[D]:
-        """Return a copy of the SplitEnd.
+        """Return a copy of the SplitEnd. O(1) space & time complexity.
 
-        - O(1) space & time complexity.
-        - returns a new instance with same data, including the root
+        .. code:: python
+
+            def copy(self) -> D
+
+        :return: a new SplitEnd instance with same data and root
+
         """
-        se: SplitEnd[D] = SplitEnd(self._root.get().peak())
-        se._count, se._top, se._root = self._count, self._top, self._root
+        se: SplitEnd[D] = SplitEnd(self._root.peak())
+        se._count, se._tip, se._root = self._count, self._tip, self._root
         return se
 
-    def fold[T](self, f: Callable[[T, D], T], init: T | None = None, /) -> T | Never:
-        """Reduce with a function, fold in natural LIFO Order."""
-        if self._top:
-            return self._top.get().fold(f, init)
-        if init is not None:
-            return init
-        msg = 'SE: Folding empty SplitEnd but no initial value supplied'
-        raise ValueError(msg)
+    def fold[T](
+            self,
+            f: Callable[[T, D], T],
+            init: T | None = None
+        ) -> T:
+        """Reduce with a function, fold in natural LIFO Order.
+
+        .. code:: python
+
+            def fold(
+                self,
+                f: Callable[[T, D], T],
+                init: T
+            ) -> T
+
+        :param f: folding function, first argument is for accumulated value
+        :param init: optional initial starting value for the fold
+        :return: reduced value folding from tip to root in natural LIFO order
+
+        """
+        return self._tip.fold(f, init)
+

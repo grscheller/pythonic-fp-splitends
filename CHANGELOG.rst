@@ -17,10 +17,23 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-0.30.0 - TBD
-~~~~~~~~~~~~
+1.0.0 - TBD
+~~~~~~~~~~~
 
-First PyPI release as pythonic-fp.splitends
+API Improvements.
+
+- plugged leaking abstractions from class SENode
+- leaning harder into hair analogies.
+
+  - SplitEnd.pop -> SplitEnd.snip
+  - SplitEnd.push -> SplitEnd.extend
+
+Sphinx docstring improvements.
+
+0.30.0 - 2025-07-06
+~~~~~~~~~~~~~~~~~~~
+
+First PyPI release as the pythonic-fp.splitends project.
 
 0.28.1 - 2025-04-22
 ~~~~~~~~~~~~~~~~~~~
