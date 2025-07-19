@@ -12,19 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Package ``pythonic_fp.splitends``.
+"""Pythonic FP - Splitends``.
 
-Implementing a singularly linked LIFO queue called a SplitEnd.
-These data structures can safely share data nodes between themselves.
+Python package Implementing a singularly linked LIFO queue called
+a ``SplitEnd``. These data structures can safely share data nodes
+between themselves.
 
 - each ``SplitEnd`` is a very simple stateful (mutable) LIFO stack
-- data can be extended to and cut off the of the end (top)
-- the "root" value of a ``SplitEnd`` is fixed and not removable
+- data can be "extended" to or "snipped" off of the end (tip)
+- the "root" value of a ``SplitEnd`` is fixed and cannot be "snipped"
 - different mutable split ends can safely share the same "tail"
 - each ``SplitEnd`` sees itself as a singularly linked list
 - bush-like datastructures can be formed using multiple ``SplitEnds``
 - the ``SplitEnd`` copy method and ``len`` are O(1)
-- in boolean context returns true if the ``SplitEnd`` not just its "root"
+- in boolean context returns true if the ``SplitEnd`` is not just a "root"
 
 """
 
