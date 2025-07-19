@@ -28,7 +28,7 @@ Documentation
 
 Documentation for package
 `GitHub Pages
-<https://grscheller.github.io/pythonic-fp/splitends/API/development/build/html/releases.htm>`_
+<https://grscheller.github.io/pythonic-fp/splitends/API/development/build/html/releases.html>`_
 hosted on GitHub pages.
 
 Copyright and License
