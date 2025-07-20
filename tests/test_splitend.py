@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 from pythonic_fp.splitends.splitend import SplitEnd as SE
-from pythonic_fp.iterables import concat
+from pythonic_fp.iterables.iterables import concat
 
 class Test_SplitEnds:
     def test_mutate_returns_none(self) -> None:
@@ -230,3 +230,21 @@ class Test_SplitEnds:
             assert x == lf.pop()
         assert len(lf) == 0       # test iteration gets all values
         assert len(s2) == 4       # s2 not consumed
+
+    def test_fold(self) -> None:
+        def cat_str(s1: str, s2: str) -> str:
+            return s1 + s2
+
+        def cat_ord(s1: str, s2: int) -> str:
+            return s1 + chr(s2)
+
+        se_str = SE('b', 'c', 'd', 'e')
+        se_ord = SE(98, 99, 100, 101)
+
+        assert se_str.fold(cat_str) == 'edcb'
+        assert se_str.rev_fold(cat_str) == 'bcde'
+        assert se_str.fold(cat_str, 'f') == 'fedcb'
+        assert se_str.rev_fold(cat_str, 'a' ) == 'abcde'
+
+        assert se_ord.fold(cat_ord, 'f') == 'fedcb'
+        assert se_ord.rev_fold(cat_ord, 'a' ) == 'abcde'

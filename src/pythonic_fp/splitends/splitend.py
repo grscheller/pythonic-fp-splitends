@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Hashable, Iterator
 from typing import TypeVar
+from pythonic_fp.iterables.iterables import maybe_fold_left
 from .splitend_node import SENode
 
 __all__ = ['SplitEnd']
@@ -145,13 +146,37 @@ class SplitEnd[D]:
             def fold(
                 self,
                 f: Callable[[T, D], T],
-                init: T
+                init: T | None = None
             ) -> T
 
-        :param f: folding function, first argument is for accumulated value
+        :param f: folding function, for argument is for the accumulator
         :param init: optional initial starting value for the fold
         :return: reduced value folding from tip to root in natural LIFO order
 
         """
         return self._tip.fold(f, init)
 
+    def rev_fold[T](
+            self,
+            f: Callable[[T, D], T],
+            init: T | None = None
+        ) -> T:
+        """Reduce with a function, fold from root to tip.
+
+        .. code:: python
+
+            def fold(
+                self,
+                f: Callable[[T, D], T],
+                init: T | None
+            ) -> T
+
+        :param f: folding function, for argument is for the accumulator
+        :param init: optional initial starting value for the fold
+        :return: reduced value folding from tip to root in natural LIFO order
+
+        """
+        # The get() is safe because SplitEnds are never "empty" due to the root. 
+        if init is None:
+            return maybe_fold_left(reversed(self), f).get()
+        return maybe_fold_left(reversed(self), f, init).get()
