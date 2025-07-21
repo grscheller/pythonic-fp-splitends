@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 from pythonic_fp.splitends.splitend import SplitEnd as SE
-from pythonic_fp.iterables.iterables import concat
+from pythonic_fp.iterables.merging import concat
 
 class Test_SplitEnds:
     def test_mutate_returns_none(self) -> None:

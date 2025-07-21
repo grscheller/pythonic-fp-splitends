@@ -16,7 +16,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Hashable, Iterator
 from typing import TypeVar
-from pythonic_fp.iterables.iterables import maybe_fold_left
+from pythonic_fp.iterables.folding import maybe_fold_left
 from .splitend_node import SENode
 
 __all__ = ['SplitEnd']
