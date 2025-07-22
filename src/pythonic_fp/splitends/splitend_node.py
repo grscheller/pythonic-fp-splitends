@@ -21,7 +21,7 @@ other data structures which contain these data structures.
 from __future__ import annotations
 from collections.abc import Callable, Hashable, Iterator
 from typing import cast, TypeVar
-from pythonic_fp.containers.maybe import MayBe
+from pythonic_fp.fptools.maybe import MayBe
 
 __all__ = ['SENode']
 

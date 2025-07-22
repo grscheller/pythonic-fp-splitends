@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
-from pythonic_fp.containers.maybe import MayBe as MB
+from pythonic_fp.fptools.maybe import MayBe
 from pythonic_fp.splitends.splitend_node import SENode
 
 class Test_Node:
@@ -30,14 +30,14 @@ class Test_Node:
         n3 = SENode(3, n2)
 
         assert n3._data == 3
-        assert n3._prev != MB()
+        assert n3._prev != MayBe()
         assert n3._prev.get()._data == 2
         assert n2._prev is not None
         assert n2._data == n3._prev.get()._data == 2
         assert n1._data == n2._prev.get()._data == n3._prev.get()._prev.get()._data == 1
-        assert n3._prev != MB()
-        assert n3._prev.get()._prev.get() != MB()
-        assert n3._prev.get()._prev.get()._prev == MB()
+        assert n3._prev != MayBe()
+        assert n3._prev.get()._prev.get() != MayBe()
+        assert n3._prev.get()._prev.get()._prev == MayBe()
         assert n3._prev.get()._prev == n2._prev
 
     def test_iter(self) -> None:
