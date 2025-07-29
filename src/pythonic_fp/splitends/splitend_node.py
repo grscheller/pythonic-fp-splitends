@@ -14,10 +14,11 @@
 
 """Data node class used privately by class SplitEnd.
 
-Node classes used with graph-like data structures. API designed to be used by
-other data structures which contain these data structures.
-"""
+Node classes used to make bush-like graphs. API made public since it
+might prove useful to someone designing other data structures similar
+to a ``splitend``.
 
+"""
 from __future__ import annotations
 from collections.abc import Callable, Hashable, Iterator
 from typing import cast, TypeVar
@@ -26,7 +27,6 @@ from pythonic_fp.fptools.maybe import MayBe
 __all__ = ['SENode']
 
 D = TypeVar('D', bound=Hashable)
-T = TypeVar('T')
 
 
 class SENode[D]:
@@ -34,20 +34,11 @@ class SENode[D]:
 
     - hashable data node for a end-to-root singularly linked list.
     - designed so multiple splitends can safely share the same data
-    - this type of node always contains
-
-      - data
-      - potential link to a previous node
-
-    - nodes point towards a unique "bottom node" with no predecessor
-
-      - in a Boolean context returns true if not at the bottom
-      - different splitends do not have to have the same bottom node
 
     - two nodes compare as equal if
 
       - both their previous Nodes are the same
-      - their data compares as equal
+      - their data compare as equal
 
     - more than one node can point to the same proceeding node
 
@@ -58,6 +49,11 @@ class SENode[D]:
     __slots__ = '_data', '_prev'
 
     def __init__(self, data: D, prev: SENode[D] | None = None) -> None:
+        """
+        :param data: nodes always contain data of type D
+        :param prev: potential link to a previous node
+
+        """
         self._data: D = data
         self._prev: MayBe[SENode[D]] = MayBe(prev) if prev is not None else MayBe()
 

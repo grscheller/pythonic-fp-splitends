@@ -15,7 +15,7 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Typing :: Typed",
 ]
-dependencies = ["pythonic-fp.tools >=5.0.0"]
+dependencies = ["pythonic-fp.fptools >=5.0.0"]
 dynamic = ["description"]
 
 [project.urls]

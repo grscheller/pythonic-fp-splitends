@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""LIFO stacks safely sharing immutable data between themselves."""
+
 from __future__ import annotations
 
 from collections.abc import Callable, Hashable, Iterator
@@ -25,15 +27,25 @@ D = TypeVar('D', bound=Hashable)
 
 
 class SplitEnd[D]:
-    """LIFO stacks safely sharing immutable data between themselves."""
+    """Like one of many "split ends" from a shaft of hair,
+    a ``splitend`` can be "snipped" shorter or "extended"
+    further from its "tip". Its root is irremovable and
+    cannot be "snipped" off. While mutable, different
+    splitends can safely share data with each other.
 
+    """
     __slots__ = '_count', '_tip', '_root'
 
-    def __init__(self, root_data: D, *ds: D) -> None:
+    def __init__(self, root_data: D, *data: D) -> None:
+        """
+        :param root_data: irremovable initial data at bottom of stack
+        :param data: removable data to be pushed onto splitend stack
+
+        """
         node: SENode[D] = SENode(root_data)
         self._root = node
         self._tip, self._count = node, 1
-        for d in ds:
+        for d in data:
             node = SENode(d, self._tip)
             self._tip, self._count = node, self._count + 1
 
@@ -78,13 +90,10 @@ class SplitEnd[D]:
         return True
 
     def extend(self, *ds: D) -> None:
-        """Add data onto the top of the SplitEnd.
+        """Add data onto the tip of the SplitEnd. Like adding a hair
+        extension.
 
-        .. code:: python
-
-            def extend(self, *ds: D) -> None
-
-        :param ds: data to be added to end of splitend
+        :param ds: data to extend the splitend
 
         """
         for d in ds:
@@ -93,10 +102,6 @@ class SplitEnd[D]:
 
     def snip(self) -> D:
         """Snip data off tip of SplitEnd. Just return data if tip is root.
-
-        .. code:: python
-
-            def snip(self) -> D
 
         :return: data snipped off tip, otherwise root data if tip is root
 
@@ -111,10 +116,6 @@ class SplitEnd[D]:
     def peak(self) -> D:
         """Return data from tip of SplitEnd, do not consume it.
 
-        .. code:: python
-
-            def peak(self) -> D
-
         :return: data at the end of the SplitEnd
 
         """
@@ -122,10 +123,6 @@ class SplitEnd[D]:
 
     def copy(self) -> SplitEnd[D]:
         """Return a copy of the SplitEnd. O(1) space & time complexity.
-
-        .. code:: python
-
-            def copy(self) -> D
 
         :return: a new SplitEnd instance with same data and root
 
@@ -141,14 +138,6 @@ class SplitEnd[D]:
         ) -> T:
         """Reduce with a function, fold in natural LIFO Order.
 
-        .. code:: python
-
-            def fold(
-                self,
-                f: Callable[[T, D], T],
-                init: T | None = None
-            ) -> T
-
         :param f: folding function, for argument is for the accumulator
         :param init: optional initial starting value for the fold
         :return: reduced value folding from tip to root in natural LIFO order
@@ -162,14 +151,6 @@ class SplitEnd[D]:
             init: T | None = None
         ) -> T:
         """Reduce with a function, fold from root to tip.
-
-        .. code:: python
-
-            def fold(
-                self,
-                f: Callable[[T, D], T],
-                init: T | None
-            ) -> T
 
         :param f: folding function, for argument is for the accumulator
         :param init: optional initial starting value for the fold

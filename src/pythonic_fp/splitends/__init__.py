@@ -12,11 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Splitends``.
-
-Python package Implementing a singularly linked LIFO queue called
-a ``SplitEnd``. These data structures can safely share data nodes
-between themselves.
+""" Python package Implementing a singularly linked LIFO queue
+called a ``SplitEnd``. These data structures can safely share
+data nodes between themselves.
 
 - each ``SplitEnd`` is a very simple stateful (mutable) LIFO stack
 - data can be "extended" to or "snipped" off of the end (tip)
