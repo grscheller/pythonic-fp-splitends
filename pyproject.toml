@@ -20,8 +20,8 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
-  "pythonic-fp.iterables>=5.0.0",
-  "pythonic-fp.fptools>=5.0.0",
+  "pythonic-fp-iterables>=5.0.0",
+  "pythonic-fp-fptools>=5.0.0",
 ]
 dynamic = ["description"]
 
@@ -29,7 +29,7 @@ dynamic = ["description"]
 test = [
   "pytest>=8.4.1",
   "pythonic-fp=1.1.0",
-  "pythonic-fp.singletons>=1.0.0",
+  "pythonic-fp-singletons>=1.0.0",
 ]
 
 [project.urls]
