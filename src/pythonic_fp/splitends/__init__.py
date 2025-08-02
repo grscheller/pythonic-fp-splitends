@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" Python package Implementing a singularly linked LIFO queue
+"""Mutable stack objects that can safely share data.
+
+Python package Implementing a singularly linked LIFO queue
 called a ``SplitEnd``. These data structures can safely share
 data nodes between themselves.
 
