@@ -4,8 +4,8 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "pythonic-fp-splitends"
-version = "1.0.0"
-readme = "README.md"
+version = "1.0.1"
+readme = "README.rst"
 requires-python = ">=3.12"
 license = { file = "LICENSE" }
 authors = [{ name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" }]
@@ -28,7 +28,7 @@ dynamic = ["description"]
 [project.optional-dependencies]
 test = [
   "pytest>=8.4.1",
-  "pythonic-fp=1.1.0",
+  "pythonic-fp>=1.1.0",
   "pythonic-fp-singletons>=1.0.0",
 ]
 
