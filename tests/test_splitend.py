@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import annotations
 from pythonic_fp.splitends.splitend import SplitEnd as SE
 from pythonic_fp.iterables.merging import concat
 
