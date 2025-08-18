@@ -19,7 +19,7 @@ might prove useful to someone designing other data structures similar
 to a ``splitend``.
 
 """
-from __future__ import annotations
+
 from collections.abc import Callable, Hashable, Iterator
 from typing import cast, TypeVar
 from pythonic_fp.fptools.maybe import MayBe
@@ -48,7 +48,7 @@ class SENode[D]:
 
     __slots__ = '_data', '_prev'
 
-    def __init__(self, data: D, prev: SENode[D] | None = None) -> None:
+    def __init__(self, data: D, prev: 'SENode[D] | None' = None) -> None:
         """
         :param data: nodes always contain data of type D
         :param prev: potential link to a previous node
@@ -78,24 +78,33 @@ class SENode[D]:
         return False
 
     def peak(self) -> D:
-        """Return contained data"""
+        """Returns contained data.
+
+        :returns: data stored in SENode
+
+        """
         return self._data
 
-    def pop2(self) -> tuple[D, SENode[D]]:
-        """Return the data at the tip and the tail of the senode."""
+    def pop2(self) -> 'tuple[D, SENode[D]]':
+        """Return the data at the tip and the tail of the SENode.
+
+        :returns: a tuple of the data at the tip and the previous SENode
+
+        """
         if self._prev:
             return self._data, self._prev.get()
         return self._data, self
 
-    def push(self, data: D) -> SENode[D]:
-        """Push data onto the queue and return a new node containing the data."""
+    def push(self, data: D) -> 'SENode[D]':
+        """Push data onto the queue and return a new node containing the data.
+
+        :param data: data to be pushed onto the SENode stack
+        :returns: the resulting SENode[D] representing the top of the stack
+
+        """
         return SENode(data, self)
 
-    def fold[T](
-            self,
-            f: Callable[[T, D], T],
-            init: T | None = None
-        ) -> T:
+    def fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
         """Fold data across linked nodes with a function..
 
         .. code:: python
@@ -108,7 +117,7 @@ class SENode[D]:
 
         :param f: folding function, first argument is for accumulated value
         :param init: optional initial starting value for the fold
-        :return: reduced value folding from end to root in natural LIFO order
+        :returns: reduced value folding from end to root in natural LIFO order
 
         """
         if init is None:

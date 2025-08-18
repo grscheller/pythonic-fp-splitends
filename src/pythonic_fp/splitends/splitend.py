@@ -14,8 +14,6 @@
 
 """LIFO stacks safely sharing immutable data between themselves."""
 
-from __future__ import annotations
-
 from collections.abc import Callable, Hashable, Iterator
 from typing import TypeVar
 from pythonic_fp.iterables.folding import maybe_fold_left
@@ -34,6 +32,7 @@ class SplitEnd[D]:
     splitends can safely share data with each other.
 
     """
+
     __slots__ = '_count', '_tip', '_root'
 
     def __init__(self, root_data: D, *data: D) -> None:
@@ -103,7 +102,7 @@ class SplitEnd[D]:
     def snip(self) -> D:
         """Snip data off tip of SplitEnd. Just return data if tip is root.
 
-        :return: data snipped off tip, otherwise root data if tip is root
+        :returns: data snipped off tip, otherwise root data if tip is root
 
         """
         if self._count > 1:
@@ -116,48 +115,40 @@ class SplitEnd[D]:
     def peak(self) -> D:
         """Return data from tip of SplitEnd, do not consume it.
 
-        :return: data at the end of the SplitEnd
+        :returns: data at the end of the SplitEnd
 
         """
         return self._tip.peak()
 
-    def copy(self) -> SplitEnd[D]:
+    def copy(self) -> 'SplitEnd[D]':
         """Return a copy of the SplitEnd. O(1) space & time complexity.
 
-        :return: a new SplitEnd instance with same data and root
+        :returns: a new SplitEnd instance with same data and root
 
         """
         se: SplitEnd[D] = SplitEnd(self._root.peak())
         se._count, se._tip, se._root = self._count, self._tip, self._root
         return se
 
-    def fold[T](
-            self,
-            f: Callable[[T, D], T],
-            init: T | None = None
-        ) -> T:
+    def fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
         """Reduce with a function, fold in natural LIFO Order.
 
         :param f: folding function, for argument is for the accumulator
         :param init: optional initial starting value for the fold
-        :return: reduced value folding from tip to root in natural LIFO order
+        :returns: reduced value folding from tip to root in natural LIFO order
 
         """
         return self._tip.fold(f, init)
 
-    def rev_fold[T](
-            self,
-            f: Callable[[T, D], T],
-            init: T | None = None
-        ) -> T:
+    def rev_fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
         """Reduce with a function, fold from root to tip.
 
         :param f: folding function, for argument is for the accumulator
         :param init: optional initial starting value for the fold
-        :return: reduced value folding from tip to root in natural LIFO order
+        :returns: reduced value folding from tip to root in natural LIFO order
 
         """
-        # The get() is safe because SplitEnds are never "empty" due to the root. 
+        # The get() is safe because SplitEnds are never "empty" due to the root.
         if init is None:
             return maybe_fold_left(reversed(self), f).get()
         return maybe_fold_left(reversed(self), f, init).get()
