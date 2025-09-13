@@ -17,8 +17,18 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-1.0.0 - TBD
-~~~~~~~~~~~
+PyPI 1.0.2 - 2025-09-09
+~~~~~~~~~~~~~~~~~~~~~~~
+
+PyPI 1.0.1 - 2025-09-09
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Increased required versions fptools  >= 5.1.0 
+Increased required versions iterables >= 5.1.0 
+
+
+PyPI 1.0.0 - 2025-08-02
+~~~~~~~~~~~~~~~~~~~~~~~
 
 API Improvements.
 
@@ -30,18 +40,18 @@ API Improvements.
 
 Sphinx docstring improvements.
 
-0.30.0 - 2025-07-06
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.30.0 - 2025-07-06
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 First PyPI release as the pythonic-fp.splitends project.
 
-0.28.1 - 2025-04-22
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.28.1 - 2025-04-22
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Fixed mistake README.md on last PyPI release.
 
-0.28.0 - 2025-04-22
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.28.0 - 2025-04-22
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 - first PyPI release as dtools.splitends
 - docstring changes
@@ -56,8 +66,8 @@ New repo dtools.splitends. Development only.
 - dtools.splitends split out of dtools.queues
 - first PyPI release will be 0.28.0
 
-0.27.0 - 2025-04-07
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.27.0 - 2025-04-07
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 - first PyPI release as dtools.queues
 
@@ -68,20 +78,20 @@ New repo dtools.splitends. Development only.
 
 - typing improvements
 
-0.25.0 - 2025-01-17
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.25.0 - 2025-01-17
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 First release under dtools.datastructures name.
 
-0.22.1 - 2024-10-20
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.22.1 - 2024-10-20
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Removed docs from repo. documentation
 for all grscheller namespace projects maintained
 `here <https://grscheller.github.io/grscheller-pypi-namespace-docs/>`_.
 
-0.21.0 - 2024-08-20
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.21.0 - 2024-08-20
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Got back to a state maintainer is happy with. Many dependencies needed updating
 first.
@@ -109,8 +119,8 @@ Devel environment only. Going down a typing rabbit hole
   - using `@overload` to "untype" optional parameters is the way to go
   - use `cast` only when you have knowledge beyond what the typechecker can know
 
-0.19.0 - 2024-07-15
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.19.0 - 2024-07-15
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 - continuing to prepare for PyPI release 1.0.0
 - cleaned up docstrings for a 1.0.0 release
@@ -165,8 +175,8 @@ Preparing to add TypeVars
   - lots of mypy complaints
   - first version using TypeVars will be 0.15.0.0
 
-0.14.0 - 2024-03-09
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.14.0 - 2024-03-09
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 - updated dependency on CircularArray class
 
@@ -175,8 +185,8 @@ Preparing to add TypeVars
 - minor README.md wordsmithing
 - keeping project an Alpha release for now
 
-0.13.0 - 2024-01-30
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.13.0 - 2024-01-30
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 - BREAKING API CHANGE - CircularArray class removed
 - CircularArray moved to its own PyPI & GitHub repos
@@ -186,8 +196,8 @@ Preparing to add TypeVars
 
 - Fix various out-of-date docstrings
 
-0.12.3 - 2024-01-20
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.12.3 - 2024-01-20
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 - cutting next PyPI release from development (main)
 
@@ -197,8 +207,8 @@ Preparing to add TypeVars
   - will include `tests/`
   - made pytest >= 7.4 an optional test dependency
 
-0.12.0 - 2024-01-14
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.12.0 - 2024-01-14
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Considerable future-proofing for first real Beta release
 
@@ -241,8 +251,8 @@ Devel environment only.
 
       - `FTuple`
 
-0.10.9 - 2023-11-21
-~~~~~~~~~~~~~~~~~~~
+PyPI 0.10.9 - 2023-11-21
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Version 0.10.8.0 - 2023-11-18
 
@@ -278,8 +288,8 @@ Devel environment only.
 
 - some restructuring so package will scale better in the future
 
-0.9.1 - 2023-11-09
-~~~~~~~~~~~~~~~~~~
+PyPI 0.9.1 - 2023-11-09
+~~~~~~~~~~~~~~~~~~~~~~~
 
 - First Beta release of grscheller.datastructures on PyPI
 - Infrastructure stable
@@ -393,7 +403,7 @@ Devel environment only.
 ~~~~~~~~~~~~~~~~~~~~
 
 PyPI release.
-
+~~~~~
 - renamed core module to `iterlib` module
 
   - library just contained functions for manipulating iterators
@@ -477,21 +487,21 @@ Devel environment only.
   - work-in-progress
   - erroneous LSP error messages greatly reduced
 
-0.5.2.1 - 2023-09-24
-~~~~~~~~~~~~~~~~~~~~
+PyPI 0.5.2.1 - 2023-09-24
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 PyPI release.
-
+~~~~~
 - data structures now support a much more FP style for Python
 
   - introduces the use of type annotations for this effort
   - much better test coverage
 
-0.3.0.2 - 2023-09-09
-~~~~~~~~~~~~~~~~~~~~
+PyPI 0.3.0.2 - 2023-09-09
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 PyPI release.
-
+~~~~~
 - updated class `Dqueue`
 
   - added `__eq__` method
@@ -499,11 +509,11 @@ PyPI release.
 
 - improved docstrings
 
-0.2.2.2 - 2023-09-04
-~~~~~~~~~~~~~~~~~~~~
+PyPI 0.2.2.2 - 2023-09-04
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 PyPI release.
-
+~~~~~
 - decided base package should have no dependencies other than
 
   - Python version (>=2.10 due to use of Python match statement)
@@ -515,11 +525,11 @@ PyPI release.
   - https://packaging.python.org/en/latest/tutorials/packaging-projects/
   - could not do the same for tests/ if end users are to have access
 
-0.2.1.0 - 2023-09-03
-~~~~~~~~~~~~~~~~~~~~
+PyPI 0.2.1.0 - 2023-09-03
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 PyPI release.
-
+~~~~~
 - first Version uploaded to PyPI
 - https://pypi.org/project/grscheller.datastructures/
 - Install from PyPI
