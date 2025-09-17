@@ -26,7 +26,6 @@ PyPI 1.0.1 - 2025-09-09
 Increased required versions fptools  >= 5.1.0 
 Increased required versions iterables >= 5.1.0 
 
-
 PyPI 1.0.0 - 2025-08-02
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -57,8 +56,8 @@ PyPI 0.28.0 - 2025-04-22
 - docstring changes
 - pyproject.toml standardization
 
-0.27.1.0 - 2025-04-22
-~~~~~~~~~~~~~~~~~~~~~
+Version 0.27.1.0 - 2025-04-22 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 New repo dtools.splitends. Development only.
 
@@ -86,7 +85,7 @@ First release under dtools.datastructures name.
 PyPI 0.22.1 - 2024-10-20
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Removed docs from repo. documentation
+Removed docs from repo. Documentation
 for all grscheller namespace projects maintained
 `here <https://grscheller.github.io/grscheller-pypi-namespace-docs/>`_.
 
@@ -96,28 +95,29 @@ PyPI 0.21.0 - 2024-08-20
 Got back to a state maintainer is happy with. Many dependencies needed updating
 first.
 
-0.20.5.1 - 2024-08-19
-~~~~~~~~~~~~~~~~~~~~~
+0.20.5.1 - 2024-08-19 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Devel environment only. Datastructures coming back together.
+Datastructures coming back together.
 
 - works with all the current versions of fp and circular-array
 - preparing for PyPI 0.21.0 release
 
-0.20.2.0 - 2024-08-03
-~~~~~~~~~~~~~~~~~~~~~
+0.20.2.0 - 2024-08-03 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Devel environment only. Going down a typing rabbit hole
+Going down a typing rabbit hole.
 
 - updated to use grscheller.circular-array version 3.3.0 (3.2.3.0)
 - updated to use grscheller.fp version 0.3.0 (0.2.3.0)
 - removed grscheller.circular-array dependency from datastructures.SplitEnd
 - still preparing for the 1.0.0 datastructures release
 
-  - as I tighten up typing, I find I must do so for dependencies too
-  - using `# type: ignore` is a band-aid, use `@overload` and `cast` instead
-  - using `@overload` to "untype" optional parameters is the way to go
-  - use `cast` only when you have knowledge beyond what the typechecker can know
+As I tighten up typing, I find I must do so for dependencies too.
+Using ``# type: ignore`` is a band-aid, use ``@overload`` and ``cast``
+instead. Using ``@overload`` to "untype" optional parameters is the
+way to go. Use ``cast`` only when you have knowledge beyond what
+the typechecker can know.
 
 PyPI 0.19.0 - 2024-07-15
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,7 +138,7 @@ Beginning to prepare for PyPI release 1.0.0
 0.17.0.4
 ~~~~~~~~
 
- Start of effort to relax None restrictions
+Start of effort to relax None restrictions.
 
 - have begun relaxing the requirement of not storing None as a value
 
@@ -163,7 +163,7 @@ Preparing to support PEP 695 generics. Devel environment only.
 - map methods mutating objects don't play nice with typing
 
   - map methods now return copies
-  - THEREFORE: tests need to be completely overhauled
+  - therefore, tests need to be completely overhauled
 
 0.14.1.1
 ~~~~~~~~
@@ -178,17 +178,17 @@ Preparing to add TypeVars
 PyPI 0.14.0 - 2024-03-09
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- updated dependency on CircularArray class
+Updated dependency on CircularArray class.
 
-  - dependencies = ["grscheller.circular-array >= 0.2.0, < 2.1"]
-
+- ``dependencies = ["grscheller.circular-array >= 0.2.0, < 2.1"]``
 - minor README.md wordsmithing
 - keeping project an Alpha release for now
 
 PyPI 0.13.0 - 2024-01-30
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- BREAKING API CHANGE - CircularArray class removed
+BREAKING API CHANGE - CircularArray class removed.
+
 - CircularArray moved to its own PyPI & GitHub repos
 
   - https://pypi.org/project/grscheller.circular-array/
@@ -199,32 +199,30 @@ PyPI 0.13.0 - 2024-01-30
 PyPI 0.12.3 - 2024-01-20
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- cutting next PyPI release from development (main)
+Cutting next PyPI release from development (main).
 
-  - if experiment works, will drop release branch
-  - will not include `docs/`
-  - will not include `.gitignore` and `.github/`
-  - will include `tests/`
-  - made pytest >= 7.4 an optional test dependency
+- if experiment works, will drop release branch
+- will not include ``docs/``
+- will not include ``.gitignore`` and ``.github/``
+- will include ``tests/``
+- made pytest >= 7.4 an optional test dependency
 
 PyPI 0.12.0 - 2024-01-14
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Considerable future-proofing for first real Beta release
 
-0.11.3.4
-~~~~~~~~
+0.11.3.4 - Devel environment only
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Devel environment only. Finally decided to make next PyPI release Beta.
+Finally decided to make next PyPI release Beta.
 
 - Package structure mature and not subject to change beyond additions
 - Will endeavor to keep top level & core module names the same
 - API changes will be deprecated before removed
 
-0.10.14.0 - 2023-12-09
-~~~~~~~~~~~~~~~~~~~~~~
-
-Devel environment only.
+0.10.14.0 - 2023-12-09 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Finished massive renaming & repackaging effort
 
@@ -232,29 +230,27 @@ Devel environment only.
   - name choices more self-documenting
   - top level modules
 
-    - `array`
+    - ``array``
 
-      - `CLArray`
+      - ``CLArray``
 
-    - `queue`
+    - ``queue``
 
-      - `FIFOQueue` (formerly `SQueue`)
-      - `LIFOQueue` (lifo version of above)
-      - `DoubleQueue` (formerly `DQueue`)
+      - ``FIFOQueue`` (formerly ``SQueue``)
+      - ``LIFOQueue`` (lifo version of above)
+      - ``DoubleQueue`` (formerly ``DQueue``)
 
-    - `stack`
+    - ``stack``
 
-      - `Stack` (formerly `PStack`)
-      - `FStack`
+      - ``Stack`` (formerly ``PStack``)
+      - ``FStack``
 
-    - `tuple_like`
+    - ``tuple_like``
 
-      - `FTuple`
+      - ``FTuple``
 
 PyPI 0.10.9 - 2023-11-21
 ~~~~~~~~~~~~~~~~~~~~~~~~
-
-Version 0.10.8.0 - 2023-11-18
 
 - Bumping requires-python = ">=3.11" in pyproject.toml
 
@@ -265,26 +261,20 @@ Version 0.10.8.0 - 2023-11-18
     - tests pass but are 4X slower
     - LSP almost useless due to more primitive typing module
 
-0.10.7.0 - 2023-11-18
-~~~~~~~~~~~~~~~~~~~~~
+Version 0.10.7.0 - 2023-11-18 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Devel environment only.
+Overhauled ``__repr__`` and ``__str__`` methods for all classes.
+Tested that ``ds == eval(repr(ds))`` for all data structures ``ds``
+in the package. Also, Updated markdown overview documentation.
 
-- Overhauled `__repr__` & `__str__` methods for all classes
-
-  - tests that `ds == eval(repr(ds))` for all data structures ds in package
-
-- Updated markdown overview documentation
-
-0.10.1.0 - 2023-11-11
-~~~~~~~~~~~~~~~~~~~~~
-
-Devel environment only.
+Version 0.10.1.0 - 2023-11-11 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Removed flatMap methods from stateful objects
 
-  - `FLArray`, `DQueue`, `SQueue`, `PStack`
-  - kept the `map` method for each
+  - ``FLArray``, ``DQueue``, ``SQueue``, ``PStack``
+  - kept the ``map`` method for each
 
 - some restructuring so package will scale better in the future
 
@@ -306,10 +296,8 @@ PyPI 0.9.1 - 2023-11-09
   - Develop some "typed" containers
   - Need to use this package in other projects to gain insight
 
-0.8.6.0 - 2023-11-05
-~~~~~~~~~~~~~~~~~~~~
-
- Devel environment only.
+Version 0.8.6.0 - 2023-11-05 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Finally got queue.py & stack.py inheritance sorted out
 - LSP with Pyright working quite well
@@ -317,23 +305,18 @@ PyPI 0.9.1 - 2023-11-09
 
   - combine methods
 
-    - `tail` and `tailOr`
-    - `cons` and `consOr`
-    - `head` and `headOr`
+    - ``tail`` and ``tailOr``
+    - ``cons`` and ``consOr``
+    - ``head`` and ``headOr``
 
-0.8.3.0 - 2023-11-02
-~~~~~~~~~~~~~~~~~~~~
+Version 0.8.3.0 - 2023-11-02 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- Devel environment only.
+Major API breaking change. ``Dqueue`` renamed ``DQueue``.
+Tests now work.
 
-- major API breaking change
-
-  - `Dqueue` renamed `DQueue`
-
-- tests now work
-
-0.8.0.0 - 2023-10-28
-~~~~~~~~~~~~~~~~~~~~
+PyPI 0.8.0.0 - 2023-10-28
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - API breaking changes
 
@@ -344,19 +327,15 @@ PyPI 0.9.1 - 2023-11-09
   - decided to use pdoc3 over sphinx to generate API documentation
   - need to resolve tension of package being Pythonic and Functional
 
-0.7.5.0 - 2023-10-26
-~~~~~~~~~~~~~~~~~~~~
+Version 0.7.5.0 - 2023-10-26 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Devel environment only.
-
-- moved pytest test suite to root of the repo
+- Moved pytest test suite to root of the repo.
 
   - src/grscheller/datastructures/tests -> tests/
-  - seems to be the canonical location of a test suite
+  - seems to be the canonical location for the test suite
 
-- instructions to run test suite in tests/__init__.py
-
-0.7.4.0 - 2023-10-25
+PyPI 0.7.4.0 - 2023-10-25
 ~~~~~~~~~~~~~~~~~~~~
 
 - More mature
@@ -367,25 +346,23 @@ Devel environment only.
 0.7.2.0 - 2023-10-18
 ~~~~~~~~~~~~~~~~~~~~
 
-- `Queue` & `Dqueue` no longer return `Maybe` objects
+``Queue`` & ``Dqueue`` no longer return ``Maybe`` objects
 
-  - Neither store `None` as a value
-  - Now safe to return `None` for non-existent values
+- Neither store ``None`` as a value
+- Now safe to return ``None`` for non-existent values
 
-    - like popping or peaking from an empty `queue` or `dqueue`
+  - like popping or peaking from an empty ``queue`` or ``dqueue``
 
-0.7.0.0 - 2023-10-16
-~~~~~~~~~~~~~~~~~~~~
+Version 0.7.0.0 - 2023-10-16 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Devel environment only.
+- added ``Queue`` data structure representing a FIFO queue
+- renamed two ``Dqueue`` methods
 
-- added `Queue` data structure representing a FIFO queue
-- renamed two `Dqueue` methods
+  - ``headR`` -> ``peakLastIn``
+  - ``headL`` -> ``peakNextOut``
 
-  - `headR` -> `peakLastIn`
-  - `headL` -> `peakNextOut`
-
-- went ahead and removed `Stack` head method
+- went ahead and removed the ``Stack`` head method
 
   - fair since I still labeling releases as alpha releases
   - the API is still a work in progress
@@ -397,91 +374,85 @@ Devel environment only.
     - objects "sharing" their data -> FP methods return copies
     - objects "contain" their data -> FP methods mutate object
 
-  - added info on class `Queue`
+  - added info on class ``Queue``
 
-0.6.9.0 - 2023-10-09
+PyPI 0.6.9.0 - 2023-10-09
 ~~~~~~~~~~~~~~~~~~~~
 
-PyPI release.
-~~~~~
-- renamed core module to `iterlib` module
+- renamed core module to ``iterlib`` module
 
   - library just contained functions for manipulating iterators
-  - TODO: use `mergeIters` as a guide for an iterator "zip" function
+  - TODO: use ``mergeIters`` as a guide for an iterator "zip" function
 
 - class Stack better in alignment with:
 
   - Python lists
 
     - more natural for Stack to iterate backwards starting from head
-    - removed Stack's `__getitem__` method
+    - removed Stack's ``__getitem__`` method
     - both pop and push/append from end
 
-  - `Dqueue` which wraps a `Circle` instance
+  - ``Dqueue`` which wraps a ``Circle`` instance
 
-    - also `Dqueue` does not have a `__getitem__` method
+    - also ``Dqueue`` does not have a ``__getitem__`` method
 
-  - `Circle` implements a circular array with a Python List
+  - ``Circle`` implements a circular array with a Python List
 
-0.6.8.6 - 2023-10-08
-~~~~~~~~~~~~~~~~~~~~
+Version 0.6.8.6 - 2023-10-08 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Devel environment only.
+Three new methods for class ``Circle`` and ``Dqueue``.
 
-- 3 new methods for class `Circle` and `Dqueue`
+- ``mapSelf``, ``flatMapSelf``, ``mergeMapSelf``
 
-  - `mapSelf`, `flatMapSelf`, `mergeMapSelf`
+  - these correspond to ``map``, ``flatMap``, ``mergeMap``
+  - except they act on the class objects themselves
 
-    - these correspond to `map`, `flatMap`, `mergeMap`
-    - except they act on the class objects themselves, not new instances
+    - not new instances
 
-- not worth the maintenance effort maintaining two version of `Dqueue`
+Not worth the maintenance effort maintaining two version
+of ``Dqueue``.
 
-  - one returning new instances
-  - the other modifying the object in place
+- one returning new instances
+- the other modifying the object in place
 
-0.6.8.3 - 2023-10-06
-~~~~~~~~~~~~~~~~~~~~
+Version 0.6.8.3 - 2023-10-06 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Devel environment only.
+Class ``Carray`` renamed to ``Circle``
 
-- class `Carray` renamed to `Circle`
+- implements a circular array based on a Python List
+- resizes itself as needed
+- will handle ``None`` values being pushed and popped from it
+- implemented in the grscheller.datastructures.circle module
+- O(1) pushing/popping to/from either end
+- O(1) length determination
+- O(1) indexing for setting and getting values.
 
-  - implements a circular array based on a Python List
-  - resizes itself as needed
-  - will handle `None` values being pushed and popped from it
-  - implemented in the grscheller.datastructures.circle module
-  - O(1) pushing/popping to/from either end
-  - O(1) length determination
-  - O(1) indexing for setting and getting values.
+Now ``Dqueue`` is implemented with the ``Circle`` class
+instead of ``list`` directly. Ensures that ``None`` is
+never pushed to ``Stack`` and ``Dqueue`` objects.
 
-- `Dqueue` implemented with `Circle` class instead of `list` directly
-- Ensured that `None` is never pushed to `Stack` & `Dqueue` objects
-
-0.6.3.2 - 2023-09-30
-~~~~~~~~~~~~~~~~~~~~
-
-Devel environment only.
+Version 0.6.3.2 - 2023-09-30 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Improved comments and type annotations
-- Removed isEmpty method from `Dqueue` class
-- Both `Dqueue` & `Stack` objects evaluate true when non-empty
+- Removed isEmpty method from ``Dqueue`` class
+- Both ``Dqueue`` & ``Stack`` objects evaluate true when non-empty
 - Beginning preparations for the next PyPI release
 
   - Want to make next PyPI release a Beta release
   - Need to improve test suite first
 
-0.6.2.0 - 2023-09-25
-~~~~~~~~~~~~~~~~~~~~
+Version 0.6.2.0 - 2023-09-25 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Devel environment only. Removed `isEmpty` method from `Stack` class.
+Removed ``isEmpty`` method from ``Stack`` class.
 
-0.6.1.0 - 2023-09-25
-~~~~~~~~~~~~~~~~~~~~
+Version 0.6.1.0 - 2023-09-25 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Devel environment only.
-
-- Maybe `get()` and `getOrElse()` API changes
+- Maybe ``get()`` and ``getOrElse()`` API changes
 - getting a better handle on type annotation
 
   - work-in-progress
@@ -490,8 +461,6 @@ Devel environment only.
 PyPI 0.5.2.1 - 2023-09-24
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PyPI release.
-~~~~~
 - data structures now support a much more FP style for Python
 
   - introduces the use of type annotations for this effort
@@ -500,11 +469,9 @@ PyPI release.
 PyPI 0.3.0.2 - 2023-09-09
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PyPI release.
-~~~~~
-- updated class `Dqueue`
+- updated class ``Dqueue``
 
-  - added `__eq__` method
+  - added ``__eq__`` method
   - added equality tests to tests/test_dqueue.py
 
 - improved docstrings
@@ -512,8 +479,6 @@ PyPI release.
 PyPI 0.2.2.2 - 2023-09-04
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PyPI release.
-~~~~~
 - decided base package should have no dependencies other than
 
   - Python version (>=2.10 due to use of Python match statement)
@@ -522,24 +487,23 @@ PyPI release.
 - made pytest an optional [test] dependency
 - added src/ as a top level directory as per
 
-  - https://packaging.python.org/en/latest/tutorials/packaging-projects/
+  - ``https://packaging.python.org/en/latest/tutorials/packaging-projects/``
   - could not do the same for tests/ if end users are to have access
 
 PyPI 0.2.1.0 - 2023-09-03
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PyPI release.
-~~~~~
-- first Version uploaded to PyPI
+First Version uploaded to PyPI.
+
 - https://pypi.org/project/grscheller.datastructures/
 - Install from PyPI
 
-  - `$ pip install grscheller.datastructures==0.2.1.0`
-  - `$ pip install grscheller.datastructures` # for top level version
+  - ``$ pip install grscheller.datastructures==0.2.1.0``
+  - ``$ pip install grscheller.datastructures # for top level version``
 
 - Install from GitHub
 
-  - `$ pip install git+https://github.com/grscheller/datastructures@v0.2.1.0`
+  - ``$ pip install git+https://github.com/grscheller/datastructures@v0.2.1.0``
 
 - pytest made a dependency
 
@@ -553,42 +517,39 @@ PyPI release.
 
     - for CI/CD pipelines requiring unit testing
 
-0.2.0.2 - 2023-08-29
-~~~~~~~~~~~~~~~~~~~~
+Version 0.2.0.2 - 2023-08-29 (GitHub only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-First version grscheller.datastructures installed from GitHub with pip
-`$ pip install git+https://github.com/grscheller/datastructures@v0.2.0.2`
+First installable version of grscheller.datastructures
+install from GitHub with pip via:
+``$ pip install git+https://github.com/grscheller/datastructures@v0.2.0.2``
 
-0.2.0.0 - 2023-08-29
-~~~~~~~~~~~~~~~~~~~~
-
-Devel environment only.
+Version 0.2.0.0 - 2023-08-29 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - BREAKING API CHANGE!!!
-- `Dqueue` pushL & pushR methods now return references to self
+- the Dqueue pushL & pushR methods now return references to self
 
-  - These methods used to return the data being pushed
-  - Now able to "." chain push methods together
+  - these methods used to return the data being pushed
+  - now able to "." chain push methods together
 
-- Updated tests - before making API changes
-- First version to be "released" on GitHub
+- updated tests - before making API changes
+- first version to be "released" on GitHub
 
-0.1.1.0 - 2023-08-27
-~~~~~~~~~~~~~~~~~~~~
-
- Devel environment only.
+Version 0.1.1.0 - 2023-08-27 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - grscheller.datastructures moved to its own GitHub repo
 - https://github.com/grscheller/datastructures
 
   - GitHub and PyPI user names just a happy coincidence
 
-0.1.0.0 - 2023-08-27
-~~~~~~~~~~~~~~~~~~~~
+Version 0.1.0.0 - 2023-08-27 (Devel environment only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Package implementing data structures which do not throw exceptions
-- Did not push to PyPI until version 0.2.1.0
-- Initial Python grscheller.datastructures for 0.1.0.0 commit:
+Package implementing data structures which do not throw exceptions
 
-  - `dqueue` - implements a double sided queue class `Dqueue`
-  - `stack` - implements a LIFO stack class `Stack`
+  - ``dqueue`` - implements a double sided queue class ``Dqueue``
+  - ``stack`` - implements a LIFO stack class ``Stack``
+
+Did not push to PyPI until version ``0.2.1.0``.
