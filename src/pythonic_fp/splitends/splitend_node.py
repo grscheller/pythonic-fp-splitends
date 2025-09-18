@@ -77,6 +77,7 @@ class SENode[H: Hashable]:
 
     def peak_prev(self) -> 'SENode[H]':
         """Peak at previous node.
+
         :returns: Reference to previous node stored in the ``SENode``.
         """
         if self:

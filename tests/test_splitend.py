@@ -66,6 +66,9 @@ class Test_SplitEnds:
         assert s2.cut(0) == ()
         assert s2.cut() == tuple(range(1993, -1, -1))
         assert len(s2) == 1
+        assert s2.cut(5) == (0,)
+        s2.extend(1, 2, 3, 4, 5)
+        assert s2.cut() == (5, 4, 3, 2, 1, 0)
 
 
     def test_SplitEnd_len(self) -> None:

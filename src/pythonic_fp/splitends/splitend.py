@@ -131,7 +131,7 @@ class SplitEnd[H: Hashable]:
             n -= 1
 
         if self._count - num > 1:
-            self._tip, self._count = node, count - n
+            self._tip, self._count = node, count - num
         else:
             self._tip, self._count = node, 1
 
