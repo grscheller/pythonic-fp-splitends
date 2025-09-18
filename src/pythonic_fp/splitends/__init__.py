@@ -19,13 +19,13 @@ called a ``SplitEnd``. These data structures can safely share
 data nodes between themselves.
 
 - each ``SplitEnd`` is a very simple stateful (mutable) LIFO stack
-- data can be "extended" to or "snipped" off of the end (tip)
+- data can be "extended" to or "snipped" off the "end"
 - the "root" value of a ``SplitEnd`` is fixed and cannot be "snipped"
 - different mutable split ends can safely share the same "tail"
 - each ``SplitEnd`` sees itself as a singularly linked list
 - bush-like datastructures can be formed using multiple ``SplitEnds``
 - the ``SplitEnd`` copy method and ``len`` are O(1)
-- in boolean context returns true if the ``SplitEnd`` is not just a "root"
+- in boolean context returns true if the ``SplitEnd`` is not just its "root"
 
 """
 

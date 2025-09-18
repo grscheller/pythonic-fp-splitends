@@ -83,6 +83,16 @@ class Test_Node:
         assert d3 == b3
         assert d4 != b4
         assert d5 != a5
+        assert d5.peak_prev() == d4
+        assert d4.peak_prev() == d3
+        assert d5.peak_prev().peak_prev() == d3
+        assert a2.peak_prev() == a1
+        assert a1.peak_prev() == a1
+        assert a1.peak_prev() is a1
+        assert a1.peak_prev() is a1
+        assert b3.peak_prev() == a2
+        assert b3.peak_prev() is not a2
+        assert b3.peak_prev() is b2
 
     def test_fold(self) -> None:
         a1 = SENode(1)

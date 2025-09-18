@@ -12,25 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Data node class used privately by class SplitEnd.
-
-Node classes used to make bush-like graphs. API made public since it
-might prove useful to someone designing other data structures similar
-to a ``splitend``.
-
-"""
+"""Node class used to make inwardly directed bush-like graphs."""
 
 from collections.abc import Callable, Hashable, Iterator
-from typing import cast, TypeVar
+from typing import cast
 from pythonic_fp.fptools.maybe import MayBe
 
 __all__ = ['SENode']
 
-D = TypeVar('D', bound=Hashable)
 
-
-class SENode[D]:
-    """Data node for class SplitEnd
+class SENode[H: Hashable]:
+    """Used by class SplitEnd as a hidden implementation detail.
 
     - hashable data node for a end-to-root singularly linked list.
     - designed so multiple splitends can safely share the same data
@@ -48,16 +40,15 @@ class SENode[D]:
 
     __slots__ = '_data', '_prev'
 
-    def __init__(self, data: D, prev: 'SENode[D] | None' = None) -> None:
+    def __init__(self, data: H, prev: 'SENode[H] | None' = None) -> None:
         """
-        :param data: nodes always contain data of type D
+        :param data: Nodes always contain data of type ``H``.
         :param prev: potential link to a previous node
-
         """
-        self._data: D = data
-        self._prev: MayBe[SENode[D]] = MayBe(prev) if prev is not None else MayBe()
+        self._data: H = data
+        self._prev: MayBe[SENode[H]] = MayBe(prev) if prev is not None else MayBe()
 
-    def __iter__(self) -> Iterator[D]:
+    def __iter__(self) -> Iterator[H]:
         node = self
         while node:
             yield node._data
@@ -77,48 +68,44 @@ class SENode[D]:
             return True
         return False
 
-    def peak(self) -> D:
-        """Returns contained data.
+    def peak_data(self) -> H:
+        """Peak at data.
 
-        :returns: data stored in SENode
-
+        :returns: The data stored in the ``SENode``.
         """
         return self._data
 
-    def pop2(self) -> 'tuple[D, SENode[D]]':
-        """Return the data at the tip and the tail of the SENode.
+    def peak_prev(self) -> 'SENode[H]':
+        """Peak at previous node.
+        :returns: Reference to previous node stored in the ``SENode``.
+        """
+        if self:
+            return self._prev.get()
+        return self
 
-        :returns: a tuple of the data at the tip and the previous SENode
+    def peak2(self) -> 'tuple[H, SENode[H]]':
+        """Peak at data and previous node, if a root then data and self.
 
+        :returns: tuple of type tuple[H, SENode[H]]
         """
         if self._prev:
             return self._data, self._prev.get()
         return self._data, self
 
-    def push(self, data: D) -> 'SENode[D]':
-        """Push data onto the queue and return a new node containing the data.
+    def push(self, data: H) -> 'SENode[H]':
+        """Create a new ``SENode``. 
 
-        :param data: data to be pushed onto the SENode stack
-        :returns: the resulting SENode[D] representing the top of the stack
-
+        :param data: Data for new node to contain.
+        :returns: New ``SENode`` whose previous node is the current node.
         """
         return SENode(data, self)
 
-    def fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
+    def fold[T](self, f: Callable[[T, H], T], init: T | None = None) -> T:
         """Fold data across linked nodes with a function..
 
-        .. code:: python
-
-            def fold[T](
-                    self,
-                    f: Callable([T, D], T],
-                    init: T | None = None
-            ) -> T
-
-        :param f: folding function, first argument is for accumulated value
-        :param init: optional initial starting value for the fold
-        :returns: reduced value folding from end to root in natural LIFO order
-
+        :param f: Folding function, first argument is for accumulated value.`
+        :param init: Optional initial starting value for the fold.
+        :returns: Reduced value folding from end to root in natural LIFO order.
         """
         if init is None:
             acc: T = cast(T, self._data)

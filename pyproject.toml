@@ -1,6 +1,6 @@
 [project]
 name = "pythonic-fp-splitends"
-version = "1.0.3"
+version = "2.0.0"
 readme = "README.rst"
 requires-python = ">=3.13"
 license = { file = "LICENSE" }

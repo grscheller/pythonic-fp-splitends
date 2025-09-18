@@ -61,6 +61,11 @@ class Test_SplitEnds:
         assert len(s1) == 1
         assert s1.snip() == 101
         assert len(s1) == 1
+        assert s2.cut(3) == (1997, 1996, 1995)
+        assert s2.cut(1) == (1994,)
+        assert s2.cut(0) == ()
+        assert s2.cut() == tuple(range(1993, -1, -1))
+        assert len(s2) == 1
 
 
     def test_SplitEnd_len(self) -> None:
@@ -90,7 +95,7 @@ class Test_SplitEnds:
         else:
             assert False
 
-        s3 = s2001.copy()
+        s3 = s2001.split()
         assert len(s3) == 2000
         assert s3 == s2001
         assert s3.snip() == 2000
@@ -115,13 +120,13 @@ class Test_SplitEnds:
         assert len(giantSplitEnd) == 3
         assert giantTalk == 'Fe Fi Fo Fum'
 
-        gSE = giantSplitEnd.copy()
+        gSE = giantSplitEnd.split()
         for ff in gSE:
             assert ff[0] in {' ', 'F'}
 
     def test_equality(self) -> None:
         s1 = SE(*range(3))
-        s2 = s1.copy()
+        s2 = s1.split()
         s2.extend(42)
         assert s1 is not s2
         assert s1 != s2
@@ -131,7 +136,7 @@ class Test_SplitEnds:
         assert s2.peak() == 2
 
         s3 = SE(*range(1, 10001))
-        s4 = s3.copy()
+        s4 = s3.split()
         assert s3 is not s4
         assert s3 == s4
 
@@ -152,7 +157,7 @@ class Test_SplitEnds:
         ducks: tuple[str, ...] = ("Huey", "Dewey")
         s7 = SE((), ducks)
         s8 = SE((), ducks)
-        s9 = s8.copy()
+        s9 = s8.split()
         s9.extend(("Huey", "Dewey", "Louie"))
         assert s7 == s8
         assert s7 != s9
@@ -185,12 +190,12 @@ class Test_SplitEnds:
 
         s1: SE[int|None] = SE(None)
         s1.extend(24)
-        s2 = s1.copy()
+        s2 = s1.split()
         s2.extend(42)
         s1.extend(42)
         assert s1 == s2
         assert len(s1) == len(s2) == 3
-        s3 = s2.copy()
+        s3 = s2.split()
         s3.extend(None)
         assert s3.peak() is None
         assert s3
