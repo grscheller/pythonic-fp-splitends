@@ -18,24 +18,28 @@ SplitEnds
 
 **LIFO stacks safely sharing immutable data.**
 
-Like one of many "split ends" from shafts of hair,
-a ``splitend`` can be "snipped" shorter or "extended"
-further from its "tip". Its root is irremovable and
-cannot be "snipped" off. While mutable, different
-splitends can safely share data with each other.
+- each ``SplitEnd`` is a very simple stateful (mutable) LIFO stack
+- data can be either "extended" to or "snipped" off the "end" 
+- the "root" value of a ``SplitEnd`` is fixed and cannot be removed
+- different mutable split ends can safely share the same "tail"
+- each ``SplitEnd`` sees itself as a singularly linked list
+- bush-like datastructures can be formed using multiple ``SplitEnds``
+- the ``SplitEnd.split`` method and ``len`` are O(1)
+- in boolean context returns true if the ``SplitEnd`` is not just its "root"
+
 """
 
 from collections.abc import Callable, Iterator
-from pythonic_fp.iterables.folding import maybe_fold_left
+from pythonic_fp.iterables.folding import reduce_left, fold_left
+from typing import overload
 from .splitend_node import SENode
 
 __all__ = ['SplitEnd']
 
 
 class SplitEnd[D]:
-    """ """
 
-    __slots__ = '_count', '_tip', '_root'
+    __slots__ = '_count', '_end', '_root'
 
     def __init__(self, root_data: D, *data: D) -> None:
         """
@@ -44,20 +48,20 @@ class SplitEnd[D]:
         """
         node: SENode[D] = SENode(root_data)
         self._root = node
-        self._tip, self._count = node, 1
+        self._end, self._count = node, 1
         for d in data:
-            node = SENode(d, self._tip)
-            self._tip, self._count = node, self._count + 1
+            node = SENode(d, self._end)
+            self._end, self._count = node, self._count + 1
 
     def __iter__(self) -> Iterator[D]:
-        return iter(self._tip)
+        return iter(self._end)
 
     def __reversed__(self) -> Iterator[D]:
         return reversed(list(self))
 
     def __bool__(self) -> bool:
         # Returns true until all data is exhausted
-        return bool(self._tip)
+        return bool(self._end)
 
     def __len__(self) -> int:
         return self._count
@@ -77,16 +81,16 @@ class SplitEnd[D]:
         if self._root != other._root:
             return False
 
-        left = self._tip
-        right = other._tip
+        left = self._end
+        right = other._end
         for _ in range(self._count):
             if left is right:
                 return True
             if left.peak_data() != right.peak_data():
                 return False
             if left:
-                left = left._prev.get()
-                right = right._prev.get()
+                left = left._prev
+                right = right._prev
         return True
 
     def extend(self, *ds: D) -> None:
@@ -96,15 +100,15 @@ class SplitEnd[D]:
         :param ds: data to extend the splitend
         """
         for d in ds:
-            node = SENode(d, self._tip)
-            self._tip, self._count = node, self._count + 1
+            node = SENode(d, self._end)
+            self._end, self._count = node, self._count + 1
 
     def peak(self) -> D:
         """Return the data at end of SplitEnd without consuming it.
 
         :returns: The data at the tip of the SplitEnd.
         """
-        return self._tip.peak_data()
+        return self._end.peak_data()
 
     def snip(self) -> D:
         """Snip data off tip of SplitEnd. Just return data if tip is root.
@@ -112,9 +116,9 @@ class SplitEnd[D]:
         :returns: Data snipped off tip, just return root data if at root.
         """
         if self._count > 1:
-            data, self._tip, self._count = self._tip.peak2() + (self._count - 1,)
+            data, self._end, self._count = self._end.peak2() + (self._count - 1,)
         else:
-            data = self._tip.peak_data()
+            data = self._end.peak_data()
 
         return data
 
@@ -128,7 +132,7 @@ class SplitEnd[D]:
             num = self._count
 
         data: tuple[D, ...] = ()
-        node = self._tip
+        node = self._end
         count = self._count
         n = num
         while n > 0:
@@ -137,9 +141,9 @@ class SplitEnd[D]:
             n -= 1
 
         if self._count - num > 1:
-            self._tip, self._count = node, count - num
+            self._end, self._count = node, count - num
         else:
-            self._tip, self._count = node, 1
+            self._end, self._count = node, 1
 
         return data
 
@@ -149,9 +153,14 @@ class SplitEnd[D]:
         :returns: New instance, same data nodes plus additional ones on end.
         """
         se: SplitEnd[D] = SplitEnd(self._root.peak_data())
-        se._count, se._tip, se._root = self._count, self._tip, self._root
+        se._count, se._end, se._root = self._count, self._end, self._root
         se.extend(*ds)
         return se
+
+    @overload
+    def fold[T](self, f: Callable[[D, D], D]) -> D: ...
+    @overload
+    def fold[T](self, f: Callable[[T, D], T], init: T) -> T: ...
 
     def fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
         """Reduce with a function, folding from tip to root.
@@ -160,7 +169,14 @@ class SplitEnd[D]:
         :param init: Optional initial starting value for the fold.
         :returns: Reduced value folding from tip to root in natural LIFO order.
         """
-        return self._tip.fold(f, init)
+        if init is None:
+            return self._end.fold(f)  # type: ignore
+        return self._end.fold(f, init)
+
+    @overload
+    def rev_fold[T](self, f: Callable[[D, D], D]) -> D: ...
+    @overload
+    def rev_fold[T](self, f: Callable[[T, D], T], init: T) -> T: ...
 
     def rev_fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
         """Reduce with a function, fold from root to tip.
@@ -170,5 +186,5 @@ class SplitEnd[D]:
         :returns: Reduced value folding from root to tip.
         """
         if init is None:
-            return maybe_fold_left(reversed(self), f).get()
-        return maybe_fold_left(reversed(self), f, init).get()
+            return reduce_left(reversed(self), f)
+        return fold_left(reversed(self), f, init)

@@ -160,9 +160,10 @@ class Test_SplitEnds:
         ducks: tuple[str, ...] = ("Huey", "Dewey")
         s7 = SE((), ducks)
         s8 = SE((), ducks)
-        s9 = s8.split()
+        s9 = s7.split()
         s9.extend(("Huey", "Dewey", "Louie"))
-        assert s7 == s8
+        assert s7 != s8  # even with the singleton ()
+        SE(()) is not SE(())  # same root values, different root nodes
         assert s7 != s9
         assert s7.peak() == s8.peak()
         assert s7.peak() != s9.peak()
@@ -210,19 +211,22 @@ class Test_SplitEnds:
         assert len(s3) == 1
         s3.extend(42)
         s4 = SE(None, 42)
-        assert s3 == s4
+        assert s3 != s4
+        assert s3.peak() == s4.peak()
 
     def test_reversing(self) -> None:
-        s1 = SE('a', 'b', 'c', 'd')
-        s2 = SE('d', 'c', 'b', 'a')
-        assert s1 != s2
-        assert s2 == SE(*iter(s1))
-        s0 = SE('z')
-        assert s0 == SE(*iter(s0))
+        t1 = ('a', 'b', 'c', 'd')
+        t2 = ('d', 'c', 'b', 'a')
+        s1 = SE(*t1)
+        s2 = SE(*t2)
+        t2 == tuple(s1)
+        t1 == tuple(s2)
         s3 = SE(*concat(iter(range(1, 100)), iter(range(98, 0, -1))))
         s4 = SE(*s3)
-        assert s3 == s4
-        assert s3 is not s4
+        assert tuple(s3) == tuple(s4)
+        s3 = SE(*concat(iter(range(1, 100))))
+        s4 = SE(*s3)
+        assert tuple(s3) != tuple(s4)
 
     def test_reversed(self) -> None:
         lf = [1.0, 2.0, 3.0, 4.0]

@@ -14,19 +14,11 @@
 
 """Mutable stack objects that can safely share data.
 
-Python package Implementing a singularly linked LIFO queue
-called a ``SplitEnd``. These data structures can safely share
-data nodes between themselves.
-
-- each ``SplitEnd`` is a very simple stateful (mutable) LIFO stack
-- data can be "extended" to or "snipped" off the "end"
-- the "root" value of a ``SplitEnd`` is fixed and cannot be "snipped"
-- different mutable split ends can safely share the same "tail"
-- each ``SplitEnd`` sees itself as a singularly linked list
-- bush-like datastructures can be formed using multiple ``SplitEnds``
-- the ``SplitEnd`` copy method and ``len`` are O(1)
-- in boolean context returns true if the ``SplitEnd`` is not just its "root"
-
+Like one of many "split ends" from shafts of hair, a ``splitend`` can be "snipped"
+shorter or "extended" further from its "tip". Its root is irremovable and cannot be
+"snipped" off. While mutable, different splitends can safely share data with each other.
+Python package Implementing a singularly linked LIFO queue called a ``SplitEnd``. These
+data structures can safely share data nodes between themselves.
 """
 
 __author__ = 'Geoffrey R. Scheller'

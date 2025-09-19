@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pythonic_fp.fptools.maybe import MayBe
 from pythonic_fp.splitends.splitend_node import SENode
 
 class Test_Node:
@@ -28,16 +27,30 @@ class Test_Node:
         n2 = SENode(2, n1)
         n3 = SENode(3, n2)
 
+        # originally done before there were methods
         assert n3._data == 3
-        assert n3._prev != MayBe()
-        assert n3._prev.get()._data == 2
-        assert n2._prev is not None
-        assert n2._data == n3._prev.get()._data == 2
-        assert n1._data == n2._prev.get()._data == n3._prev.get()._prev.get()._data == 1
-        assert n3._prev != MayBe()
-        assert n3._prev.get()._prev.get() != MayBe()
-        assert n3._prev.get()._prev.get()._prev == MayBe()
-        assert n3._prev.get()._prev == n2._prev
+        assert n3._prev._data == 2
+        assert n2._prev is n1
+        assert n1._prev is n1
+        assert n2._data == n3._prev._data== 2
+        assert n1._data == n2._prev._data == n3._prev._prev._data == 1
+        assert n3._prev == n2
+        assert n3._prev._prev is n1
+        assert n3._prev._prev._prev is n1
+        assert n3._prev._prev == n1
+        assert n3._prev._prev._prev == n1
+
+        assert n3.peak_data() == 3
+        assert n3.peak_prev()._data == 2
+        assert n2._prev is n1
+        assert n1._prev is n1
+        assert n2.peak_data() == n3._prev.peak_data()== 2
+        assert n1.peak_data() == n2.peak_prev().peak_data() == n3.peak_prev().peak_prev().peak_data() == 1
+        assert n3.peak_prev() == n2
+        assert n3.peak_prev().peak_prev() is n1
+        assert n3.peak_prev().peak_prev().peak_prev() is n1
+        assert n3.peak_prev().peak_prev() == n1
+        assert n3.peak_prev().peak_prev().peak_prev() == n1
 
     def test_iter(self) -> None:
         n1 = SENode(1)
@@ -57,7 +70,7 @@ class Test_Node:
         a3 = SENode(3, a2)
         a4 = SENode(4, a3)
         a5 = SENode(5, a4)
-        
+
         b1 = SENode(1)
         b2 = SENode(2, b1)
         b3 = SENode(3, b2)
@@ -71,18 +84,36 @@ class Test_Node:
         d4 = SENode(42, d3)
         d5 = SENode(5, d4)
 
+        e5 = SENode(5, a4)
+        e6 = SENode(6, e5)
+        f5 = SENode(5, a4)
+        f6 = SENode(6, f5)
+        g5 = SENode(5, a4)
+        g6 = SENode(6, g5)
+
+        h6 = SENode(6, g5)
+        h7 = SENode(7, g5)
+
         assert a1 == a1
         assert a1 != a2
-        assert a1 == b1
+        assert a1 != b1
         assert a5 != b4
-        assert a4 == b4
+        assert a4 != b4
         assert b2 == c2
         assert b2 != c3
-        assert d2 == b2
-        assert d3 == a3
-        assert d3 == b3
+        assert d2 != b2
+        assert d2 == a2
+        assert d3 != a3
+        assert d3 != b3
         assert d4 != b4
         assert d5 != a5
+        assert e5 == f5 == g5
+        assert e6 != f6
+        assert e6 != g6
+        assert f6 != g6
+        assert g6 == h6
+        assert g6 != h7
+        assert h6 != h7
         assert d5.peak_prev() == d4
         assert d4.peak_prev() == d3
         assert d5.peak_prev().peak_prev() == d3
@@ -90,7 +121,7 @@ class Test_Node:
         assert a1.peak_prev() == a1
         assert a1.peak_prev() is a1
         assert a1.peak_prev() is a1
-        assert b3.peak_prev() == a2
+        assert b3.peak_prev() != a2
         assert b3.peak_prev() is not a2
         assert b3.peak_prev() is b2
 

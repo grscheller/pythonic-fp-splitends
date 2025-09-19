@@ -17,8 +17,15 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
+PyPI 2.0.0 - 2025-09-09
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- major API changes
+
 PyPI 1.0.2 - 2025-09-09
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+Docs problems with previous commit.
 
 PyPI 1.0.1 - 2025-09-09
 ~~~~~~~~~~~~~~~~~~~~~~~
