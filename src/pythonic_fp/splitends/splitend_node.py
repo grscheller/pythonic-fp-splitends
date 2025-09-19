@@ -12,7 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Node class used to make inwardly directed bush-like graphs."""
+"""
+SENode
+======
+
+**Used to make inwardly directed bush-like graphs.**
+
+- designed so multiple splitends can safely share the same data
+- nodes always contain data
+- data node ``SENode[D]`` make up end-to-root singularly linked lists
+- two nodes compare as equal if
+    - both their previous Nodes are the same
+    - their data compare as equal
+- a root node whose previous node is itself
+    - root nodes mark ends of lists
+- more than one node can point to the same proceeding node
+    - forming bush like graphs
+"""
 
 from collections.abc import Callable, Iterator
 from typing import cast
@@ -26,27 +42,6 @@ _sentinel: _Sentinel = Sentinel(('split', 'end', 'node', 'private'))
 
 
 class SENode[D]:
-    """Used by class SplitEnd as a hidden implementation detail.
-
-    - designed so multiple splitends can safely share the same data
-    - nodes always contain data
-    - data node ``SENode[D]`` make up end-to-root singularly linked lists
-
-    - two nodes compare as equal if
-
-      - both their previous Nodes are the same
-      - their data compare as equal
-
-    - a root node whose previous node is itself
-
-      - root nodes mark ends of lists
-
-    - more than one node can point to the same proceeding node
-
-      - forming bush like graphs
-
-    """
-
     __slots__ = '_data', '_prev'
 
     def __init__(self, data: D, prev: 'SENode[D] | _Sentinel' = _sentinel) -> None:
@@ -56,7 +51,7 @@ class SENode[D]:
         """
         self._data = data
         if prev is not _sentinel:
-            self._prev = MayBe(prev)
+            self._prev = MayBe(cast(SENode[D], prev))
         else:
             self._prev = MayBe()
 
@@ -64,7 +59,7 @@ class SENode[D]:
         node = self
         while node:
             yield node._data
-            node = cast(SENode[D], node._prev.get())
+            node = node._prev.get()
         yield node._data
 
     def __bool__(self) -> bool:

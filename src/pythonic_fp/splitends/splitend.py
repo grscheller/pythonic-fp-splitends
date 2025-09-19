@@ -12,7 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""LIFO stacks safely sharing immutable data between themselves."""
+"""
+SplitEnds
+=========
+
+**LIFO stacks safely sharing immutable data.**
+
+Like one of many "split ends" from shafts of hair,
+a ``splitend`` can be "snipped" shorter or "extended"
+further from its "tip". Its root is irremovable and
+cannot be "snipped" off. While mutable, different
+splitends can safely share data with each other.
+"""
 
 from collections.abc import Callable, Iterator
 from pythonic_fp.iterables.folding import maybe_fold_left
@@ -22,12 +33,7 @@ __all__ = ['SplitEnd']
 
 
 class SplitEnd[D]:
-    """Like one of many "split ends" from a shaft of hair,
-    a ``splitend`` can be "snipped" shorter or "extended"
-    further from its "tip". Its root is irremovable and
-    cannot be "snipped" off. While mutable, different
-    splitends can safely share data with each other.
-    """
+    """ """
 
     __slots__ = '_count', '_tip', '_root'
 
