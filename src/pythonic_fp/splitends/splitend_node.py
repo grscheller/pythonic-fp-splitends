@@ -14,23 +14,32 @@
 
 """Node class used to make inwardly directed bush-like graphs."""
 
-from collections.abc import Callable, Hashable, Iterator
+from collections.abc import Callable, Iterator
 from typing import cast
 from pythonic_fp.fptools.maybe import MayBe
+from pythonic_fp.sentinels.flavored import Sentinel
 
 __all__ = ['SENode']
 
+type _Sentinel = Sentinel[tuple[str, str, str, str]]
+_sentinel: _Sentinel = Sentinel(('split', 'end', 'node', 'private'))
 
-class SENode[H: Hashable]:
+
+class SENode[D]:
     """Used by class SplitEnd as a hidden implementation detail.
 
-    - hashable data node for a end-to-root singularly linked list.
     - designed so multiple splitends can safely share the same data
+    - nodes always contain data
+    - data node ``SENode[D]`` make up end-to-root singularly linked lists
 
     - two nodes compare as equal if
 
       - both their previous Nodes are the same
       - their data compare as equal
+
+    - a root node whose previous node is itself
+
+      - root nodes mark ends of lists
 
     - more than one node can point to the same proceeding node
 
@@ -40,19 +49,22 @@ class SENode[H: Hashable]:
 
     __slots__ = '_data', '_prev'
 
-    def __init__(self, data: H, prev: 'SENode[H] | None' = None) -> None:
+    def __init__(self, data: D, prev: 'SENode[D] | _Sentinel' = _sentinel) -> None:
         """
-        :param data: Nodes always contain data of type ``H``.
-        :param prev: potential link to a previous node
+        :param data: Nodes always contain data of type ``D``.
+        :param prev: optional link to a previous node
         """
-        self._data: H = data
-        self._prev: MayBe[SENode[H]] = MayBe(prev) if prev is not None else MayBe()
+        self._data = data
+        if prev is not _sentinel:
+            self._prev = MayBe(prev)
+        else:
+            self._prev = MayBe()
 
-    def __iter__(self) -> Iterator[H]:
+    def __iter__(self) -> Iterator[D]:
         node = self
         while node:
             yield node._data
-            node = node._prev.get()
+            node = cast(SENode[D], node._prev.get())
         yield node._data
 
     def __bool__(self) -> bool:
@@ -68,14 +80,14 @@ class SENode[H: Hashable]:
             return True
         return False
 
-    def peak_data(self) -> H:
+    def peak_data(self) -> D:
         """Peak at data.
 
         :returns: The data stored in the ``SENode``.
         """
         return self._data
 
-    def peak_prev(self) -> 'SENode[H]':
+    def peak_prev(self) -> 'SENode[D]':
         """Peak at previous node.
 
         :returns: Reference to previous node stored in the ``SENode``.
@@ -84,24 +96,24 @@ class SENode[H: Hashable]:
             return self._prev.get()
         return self
 
-    def peak2(self) -> 'tuple[H, SENode[H]]':
+    def peak2(self) -> 'tuple[D, SENode[D]]':
         """Peak at data and previous node, if a root then data and self.
 
-        :returns: tuple of type tuple[H, SENode[H]]
+        :returns: tuple of type tuple[D, SENode[D]]
         """
         if self._prev:
             return self._data, self._prev.get()
         return self._data, self
 
-    def push(self, data: H) -> 'SENode[H]':
-        """Create a new ``SENode``. 
+    def push(self, data: D) -> 'SENode[D]':
+        """Create a new ``SENode``.
 
         :param data: Data for new node to contain.
         :returns: New ``SENode`` whose previous node is the current node.
         """
         return SENode(data, self)
 
-    def fold[T](self, f: Callable[[T, H], T], init: T | None = None) -> T:
+    def fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
         """Fold data across linked nodes with a function..
 
         :param f: Folding function, first argument is for accumulated value.`

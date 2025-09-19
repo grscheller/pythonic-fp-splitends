@@ -14,14 +14,14 @@
 
 """LIFO stacks safely sharing immutable data between themselves."""
 
-from collections.abc import Callable, Hashable, Iterator
+from collections.abc import Callable, Iterator
 from pythonic_fp.iterables.folding import maybe_fold_left
 from .splitend_node import SENode
 
 __all__ = ['SplitEnd']
 
 
-class SplitEnd[H: Hashable]:
+class SplitEnd[D]:
     """Like one of many "split ends" from a shaft of hair,
     a ``splitend`` can be "snipped" shorter or "extended"
     further from its "tip". Its root is irremovable and
@@ -31,22 +31,22 @@ class SplitEnd[H: Hashable]:
 
     __slots__ = '_count', '_tip', '_root'
 
-    def __init__(self, root_data: H, *data: H) -> None:
+    def __init__(self, root_data: D, *data: D) -> None:
         """
         :param root_data: Irremovable initial data at bottom of stack.
         :param data: Removable data to be pushed onto splitend stack.
         """
-        node: SENode[H] = SENode(root_data)
+        node: SENode[D] = SENode(root_data)
         self._root = node
         self._tip, self._count = node, 1
         for d in data:
             node = SENode(d, self._tip)
             self._tip, self._count = node, self._count + 1
 
-    def __iter__(self) -> Iterator[H]:
+    def __iter__(self) -> Iterator[D]:
         return iter(self._tip)
 
-    def __reversed__(self) -> Iterator[H]:
+    def __reversed__(self) -> Iterator[D]:
         return reversed(list(self))
 
     def __bool__(self) -> bool:
@@ -83,7 +83,7 @@ class SplitEnd[H: Hashable]:
                 right = right._prev.get()
         return True
 
-    def extend(self, *ds: H) -> None:
+    def extend(self, *ds: D) -> None:
         """Add data onto the tip of the SplitEnd. Like adding a hair
         extension.
 
@@ -93,14 +93,14 @@ class SplitEnd[H: Hashable]:
             node = SENode(d, self._tip)
             self._tip, self._count = node, self._count + 1
 
-    def peak(self) -> H:
+    def peak(self) -> D:
         """Return the data at end of SplitEnd without consuming it.
 
         :returns: The data at the tip of the SplitEnd.
         """
         return self._tip.peak_data()
 
-    def snip(self) -> H:
+    def snip(self) -> D:
         """Snip data off tip of SplitEnd. Just return data if tip is root.
 
         :returns: Data snipped off tip, just return root data if at root.
@@ -112,7 +112,7 @@ class SplitEnd[H: Hashable]:
 
         return data
 
-    def cut(self, num: int | None = None) -> tuple[H, ...]:
+    def cut(self, num: int | None = None) -> tuple[D, ...]:
         """Cut data off end of ``SplitEnd``.
 
         :param num: Optional number of nodes to cut, default is entire stack.
@@ -121,7 +121,7 @@ class SplitEnd[H: Hashable]:
         if num is None or num > self._count:
             num = self._count
 
-        data: tuple[H, ...] = ()
+        data: tuple[D, ...] = ()
         node = self._tip
         count = self._count
         n = num
@@ -137,17 +137,17 @@ class SplitEnd[H: Hashable]:
 
         return data
 
-    def split(self, *ds: H) -> 'SplitEnd[H]':
+    def split(self, *ds: D) -> 'SplitEnd[D]':
         """Split the end and add more data.
 
         :returns: New instance, same data nodes plus additional ones on end.
         """
-        se: SplitEnd[H] = SplitEnd(self._root.peak_data())
+        se: SplitEnd[D] = SplitEnd(self._root.peak_data())
         se._count, se._tip, se._root = self._count, self._tip, self._root
         se.extend(*ds)
         return se
 
-    def fold[T](self, f: Callable[[T, H], T], init: T | None = None) -> T:
+    def fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
         """Reduce with a function, folding from tip to root.
 
         :param f: Folding function, first argument is for the accumulator.
@@ -156,7 +156,7 @@ class SplitEnd[H: Hashable]:
         """
         return self._tip.fold(f, init)
 
-    def rev_fold[T](self, f: Callable[[T, H], T], init: T | None = None) -> T:
+    def rev_fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
         """Reduce with a function, fold from root to tip.
 
         :param f: Folding function, first argument is for the accumulator.
