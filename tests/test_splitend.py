@@ -15,10 +15,11 @@
 from pythonic_fp.splitends.splitend import SplitEnd as SE
 from pythonic_fp.iterables.merging import concat
 
+
 class Test_SplitEnds:
     def test_mutate_returns_none(self) -> None:
         ps = SE(41)
-        assert ps.extend(1,2,3) is None  # type: ignore[func-returns-value]
+        assert ps.extend(1, 2, 3) is None  # type: ignore[func-returns-value]
 
     def test_wxtend_then_snip(self) -> None:
         s1 = SE(42)
@@ -39,7 +40,7 @@ class Test_SplitEnds:
 
     def test_splitend_extend_snip(self) -> None:
         s1 = SE(101)
-        s2 = SE(*range(0,2000))
+        s2 = SE(*range(0, 2000))
 
         assert len(s1) == 1
         assert len(s2) == 2000
@@ -49,7 +50,7 @@ class Test_SplitEnds:
         assert len(s1) == 2
         assert len(s2) == 1998
         assert s1.snip() == 42
-        assert s1.snip() == 101     # re-rooted
+        assert s1.snip() == 101  # re-rooted
         s1.extend(12, 13, 14)
         assert len(s1) == 4
         assert s1.snip() == 14
@@ -70,10 +71,9 @@ class Test_SplitEnds:
         s2.extend(1, 2, 3, 4, 5)
         assert s2.cut() == (5, 4, 3, 2, 1, 0)
 
-
     def test_SplitEnd_len(self) -> None:
-        s1: SE[int|None] = SE(None)
-        s2: SE[int|None] = SE(None, 42)
+        s1: SE[int | None] = SE(None)
+        s2: SE[int | None] = SE(None, 42)
 
         assert len(s1) == 1
         if s1:
@@ -92,7 +92,7 @@ class Test_SplitEnds:
         assert s2.snip() is None
         assert len(s2) == 1
 
-        s2001: SE[int] = SE(*range(1,2001))
+        s2001: SE[int] = SE(*range(1, 2001))
         if s2001:
             assert len(s2001) == 2000
         else:
@@ -117,7 +117,7 @@ class Test_SplitEnds:
     def test_iteration(self) -> None:
         giantSplitEnd: SE[str] = SE(' Fum', ' Fo', ' Fi', 'Fe')
         giantTalk = giantSplitEnd.snip()
-        assert giantTalk == "Fe"
+        assert giantTalk == 'Fe'
         for giantWord in giantSplitEnd:
             giantTalk += giantWord
         assert len(giantSplitEnd) == 3
@@ -149,25 +149,25 @@ class Test_SplitEnds:
         assert s3 == s4
         assert s3 is not s4
 
-        s5 = SE(1,2,3,4)
-        s6 = SE(1,2,3,42)
+        s5 = SE(1, 2, 3, 4)
+        s6 = SE(1, 2, 3, 42)
         assert s5 != s6
         for ii in range(10):
             s5.extend(ii)
             s6.extend(ii)
         assert s5 != s6
 
-        ducks: tuple[str, ...] = ("Huey", "Dewey")
+        ducks: tuple[str, ...] = ('Huey', 'Dewey')
         s7 = SE((), ducks)
         s8 = SE((), ducks)
         s9 = s7.split()
-        s9.extend(("Huey", "Dewey", "Louie"))
+        s9.extend(('Huey', 'Dewey', 'Louie'))
         assert s7 != s8  # even with the singleton ()
         SE(()) is not SE(())  # same root values, different root nodes
         assert s7 != s9
         assert s7.peak() == s8.peak()
         assert s7.peak() != s9.peak()
-        ducks = ducks + ("Louie",)
+        ducks = ducks + ('Louie',)
         s7.extend(ducks)
         assert s7 != s8
         assert s7 == s9
@@ -180,7 +180,7 @@ class Test_SplitEnds:
         assert s7.peak() == s9.peak()
 
     def test_storing_Nones(self) -> None:
-        s0: SE[int|None] = SE(100)
+        s0: SE[int | None] = SE(100)
         s0.extend(None)
         s0.extend(42)
         s0.extend(None)
@@ -192,7 +192,7 @@ class Test_SplitEnds:
             s0.snip()
         assert not s0
 
-        s1: SE[int|None] = SE(None)
+        s1: SE[int | None] = SE(None)
         s1.extend(24)
         s2 = s1.split()
         s2.extend(42)
@@ -239,8 +239,8 @@ class Test_SplitEnds:
         s2 = SE(*lf)
         for x in s2:
             assert x == lf.pop()
-        assert len(lf) == 0       # test iteration gets all values
-        assert len(s2) == 4       # s2 not consumed
+        assert len(lf) == 0  # test iteration gets all values
+        assert len(s2) == 4  # s2 not consumed
 
     def test_fold(self) -> None:
         def cat_str(s1: str, s2: str) -> str:
@@ -255,7 +255,36 @@ class Test_SplitEnds:
         assert se_str.fold(cat_str) == 'edcb'
         assert se_str.rev_fold(cat_str) == 'bcde'
         assert se_str.fold(cat_str, 'f') == 'fedcb'
-        assert se_str.rev_fold(cat_str, 'a' ) == 'abcde'
+        assert se_str.rev_fold(cat_str, 'a') == 'abcde'
 
         assert se_ord.fold(cat_ord, 'f') == 'fedcb'
-        assert se_ord.rev_fold(cat_ord, 'a' ) == 'abcde'
+        assert se_ord.rev_fold(cat_ord, 'a') == 'abcde'
+
+    def test_identity(self) -> None:
+        def push_se[S](se: SE[S], d: S) -> SE[S]:
+            se.extend(d)
+            return se
+
+        def add2(x: int, y: int) -> int:
+            return x + y
+
+        def mult2[S](x: int, y: int) -> int:
+            return x * y
+
+        se5 = SE(1, 2, 3, 4, 5)
+
+        assert se5.peak() == 5
+     #  assert se5.root() == 1
+
+        assert se5.fold(add2) == 15
+        assert se5.fold(add2, 10) == 25
+        assert se5.fold(mult2) == 120
+        assert se5.fold(mult2, 10) == 1200
+        se_temp = se5.split()
+        se_temp.snip()
+        se5_rev = se_temp.fold(push_se, SE(se5.peak()))
+        assert tuple(se5_rev) == tuple(SE(5, 4, 3, 2, 1))  # new root
+        se5_rev_twin = SE(se5.root(), 4, 3, 2, 1)
+        assert se5.fold(add2) == 15
+        assert se5.fold(add2, 10) == 25
+

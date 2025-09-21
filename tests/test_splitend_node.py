@@ -40,17 +40,17 @@ class Test_Node:
         assert n3._prev._prev == n1
         assert n3._prev._prev._prev == n1
 
-        assert n3.peak_data() == 3
-        assert n3.peak_prev()._data == 2
+        assert n3.data() == 3
+        assert n3.prev()._data == 2
         assert n2._prev is n1
         assert n1._prev is n1
-        assert n2.peak_data() == n3._prev.peak_data()== 2
-        assert n1.peak_data() == n2.peak_prev().peak_data() == n3.peak_prev().peak_prev().peak_data() == 1
-        assert n3.peak_prev() == n2
-        assert n3.peak_prev().peak_prev() is n1
-        assert n3.peak_prev().peak_prev().peak_prev() is n1
-        assert n3.peak_prev().peak_prev() == n1
-        assert n3.peak_prev().peak_prev().peak_prev() == n1
+        assert n2.data() == n3._prev.data()== 2
+        assert n1.data() == n2.prev().data() == n3.prev().prev().data() == 1
+        assert n3.prev() == n2
+        assert n3.prev().prev() is n1
+        assert n3.prev().prev().prev() is n1
+        assert n3.prev().prev() == n1
+        assert n3.prev().prev().prev() == n1
 
     def test_iter(self) -> None:
         n1 = SENode(1)
@@ -114,16 +114,16 @@ class Test_Node:
         assert g6 == h6
         assert g6 != h7
         assert h6 != h7
-        assert d5.peak_prev() == d4
-        assert d4.peak_prev() == d3
-        assert d5.peak_prev().peak_prev() == d3
-        assert a2.peak_prev() == a1
-        assert a1.peak_prev() == a1
-        assert a1.peak_prev() is a1
-        assert a1.peak_prev() is a1
-        assert b3.peak_prev() != a2
-        assert b3.peak_prev() is not a2
-        assert b3.peak_prev() is b2
+        assert d5.prev() == d4
+        assert d4.prev() == d3
+        assert d5.prev().prev() == d3
+        assert a2.prev() == a1
+        assert a1.prev() == a1
+        assert a1.prev() is a1
+        assert a1.prev() is a1
+        assert b3.prev() != a2
+        assert b3.prev() is not a2
+        assert b3.prev() is b2
 
     def test_fold(self) -> None:
         a1 = SENode(1)

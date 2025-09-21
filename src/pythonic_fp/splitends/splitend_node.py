@@ -24,8 +24,8 @@ SENode
 - two nodes compare as equal if
     - both their previous Nodes are the same
     - their data compare as equal
-- a root node whose previous node is itself
-    - root nodes mark ends of lists
+- a root node is a node whose previous node is itself
+    - root nodes mark the bottom of splitend stacks
 - more than one node can point to the same proceeding node
     - forming bush like graphs
 
@@ -37,9 +37,8 @@ from pythonic_fp.sentinels.flavored import Sentinel
 
 __all__ = ['SENode']
 
-type _secret = tuple[str, str, str, str]
-type _Sentinel = Sentinel[_secret]
-_sentinel: Final[_Sentinel] = Sentinel(('split', 'end', 'node', 'private'))
+type _Sentinel = Sentinel[str]
+_sentinel: Final[_Sentinel] = Sentinel('_split_end_node_private_str')
 
 
 class SENode[D]:
@@ -57,6 +56,9 @@ class SENode[D]:
             self._prev = self
 
     def __bool__(self) -> bool:
+        """
+        :returns: ``True`` if ``SENode`` is not a root node.
+        """
         return self._prev is not self
 
     def __iter__(self) -> Iterator[D]:
@@ -80,30 +82,26 @@ class SENode[D]:
             return True
         return False
 
-    def peak_data(self) -> D:
+    def both(self) -> tuple[D, Self]:
+        """Peak at data and previous node, if a root then data and self.
+
+        :returns: tuple of type tuple[D, SENode[D]]
+        """
+        return self._data, self._prev
+
+    def data(self) -> D:
         """Peak at data.
 
         :returns: The data stored in the ``SENode``.
         """
         return self._data
 
-    def peak_prev(self) -> Self:
+    def prev(self) -> Self:
         """Peak at previous node.
 
         :returns: The previous node stored in the ``SENode``.
         """
-        if self:
-            return self._prev
-        return self
-
-    def peak2(self) -> tuple[D, Self]:
-        """Peak at data and previous node, if a root then data and self.
-
-        :returns: tuple of type tuple[D, SENode[D]]
-        """
-        if self:
-            return self._data, self._prev
-        return self._data, self
+        return self._prev
 
     def push(self, data: D) -> Self:
         """Create a new ``SENode[D]``.
