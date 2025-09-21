@@ -13,8 +13,8 @@
 # limitations under the License.
 
 """
-SENode
-======
+Class SENode
+============
 
 **Used to make inwardly directed bush-like graphs.**
 

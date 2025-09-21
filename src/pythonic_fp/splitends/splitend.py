@@ -13,8 +13,8 @@
 # limitations under the License.
 
 """
-SplitEnds
-=========
+Class SplitEnds
+===============
 
 **LIFO stacks safely sharing immutable data.**
 
