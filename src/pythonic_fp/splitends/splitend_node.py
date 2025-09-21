@@ -33,7 +33,7 @@ Class SENode
 
 from collections.abc import Callable, Iterator
 from typing import cast, Final, overload, Self
-from pythonic_fp.sentinels.flavored import Sentinel
+from pythonic_fp.gadgets.sentinels.flavored import Sentinel
 
 __all__ = ['SENode']
 

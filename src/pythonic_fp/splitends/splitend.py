@@ -34,7 +34,7 @@ from collections.abc import Callable, Iterator
 from pythonic_fp.iterables.folding import reduce_left, fold_left
 from typing import cast, Final, overload
 from pythonic_fp.queues.lifo import LIFOQueue
-from pythonic_fp.sentinels.flavored import Sentinel
+from pythonic_fp.gadgets.sentinels.flavored import Sentinel
 from .splitend_node import SENode
 
 __all__ = ['SplitEnd']
@@ -112,8 +112,8 @@ class SplitEnd[D]:
             if left.data() != right.data():
                 return False
             if left:
-                left = left._prev
-                right = right._prev
+                left = left.prev()
+                right = right.prev()
         return True
 
     def cut(self, num: int | None = None) -> tuple[D, ...]:
