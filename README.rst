@@ -17,11 +17,10 @@ between themselves.
 - the ``SplitEnd`` copy method and ``len`` are O(1)
 - in boolean context returns true if the ``SplitEnd`` is not just a "root"
 
-This PyPI project is part of of the grscheller
-`pythonic-fp namespace projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_
-
-**Warning:** This PyPI project is Alpha level software and subject to
-change.
+Part of the
+`pythonic-fp
+<https://grscheller.github.io/pythonic-fp/overview/next/build/html/index.html>`_
+PyPI projects.
 
 Documentation
 -------------
