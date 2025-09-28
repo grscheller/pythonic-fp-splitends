@@ -1,6 +1,6 @@
 from .splitend_node import SENode
 from collections.abc import Callable, Iterator
-from pythonic_fp.sentinels.flavored import Sentinel
+from pythonic_fp.gadgets.sentinels.flavored import Sentinel
 from typing import overload
 
 __all__ = ['SplitEnd']
