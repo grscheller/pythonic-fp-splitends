@@ -31,10 +31,10 @@ Class SplitEnds
 """
 
 from collections.abc import Callable, Iterator
-from pythonic_fp.iterables.folding import reduce_left, fold_left
 from typing import cast, Final, overload
-from pythonic_fp.queues.lifo import LIFOQueue
 from pythonic_fp.gadgets.sentinels.flavored import Sentinel
+from pythonic_fp.iterables.folding import reduce_left, fold_left
+from pythonic_fp.queues.lifo import LIFOQueue
 from .splitend_node import SENode
 
 __all__ = ['SplitEnd']
