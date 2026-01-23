@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Geoffrey R. Scheller
+# Copyright 2023-2026 Geoffrey R. Scheller
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,20 +14,25 @@
 
 """
 Class SENode
-============
+------------
 
-**Used to make inwardly directed bush-like graphs.**
+.. admonition:: Used to make inwardly directed bush-like graphs
 
-- designed so multiple splitends can safely share the same data
-- nodes always contain data
-- data node ``SENode[D]`` make up end-to-root singularly linked lists
-- two nodes compare as equal if
-    - both their previous Nodes are the same
-    - their data compare as equal
-- a root node is a node whose previous node is itself
-    - root nodes mark the bottom of splitend stacks
-- more than one node can point to the same proceeding node
-    - forming bush like graphs
+    - designed so multiple splitends can safely share the same data
+    - nodes always contain data
+    - data node ``SENode[D]`` make up end-to-root singularly linked lists
+    - two nodes compare as equal if
+
+      - both their previous Nodes are the same
+      - their data compare as equal
+
+    - a root node is a node whose previous node is itself
+
+      - root nodes mark the bottom of splitend stacks
+
+    - more than one node can point to the same proceeding node
+
+      - forming bush like graphs
 
 """
 
@@ -72,6 +77,7 @@ class SENode[D]:
         """
         Two ``SENodes`` nodes are equal if their previous nodes are the
         same object and their data compare as equal.
+
         """
         if not isinstance(other, type(self)):
             return False
@@ -86,6 +92,7 @@ class SENode[D]:
         """Peak at data and previous node, if a root then data and self.
 
         :returns: tuple of type tuple[D, SENode[D]]
+
         """
         return self._data, self._prev
 
@@ -93,6 +100,7 @@ class SENode[D]:
         """Peak at data.
 
         :returns: The data stored in the ``SENode``.
+
         """
         return self._data
 
@@ -100,6 +108,7 @@ class SENode[D]:
         """Peak at previous node.
 
         :returns: The previous node stored in the ``SENode``.
+
         """
         return self._prev
 
@@ -108,6 +117,7 @@ class SENode[D]:
 
         :param data: Data for new node to contain.
         :returns: New ``SENode`` whose previous node is the current node.
+
         """
         return cast(Self, SENode(data, self))
 
@@ -122,6 +132,7 @@ class SENode[D]:
         :param f: Folding function, first argument is for accumulated value.`
         :param init: Optional initial starting value for the fold.
         :returns: Reduced value folded from end to root in natural LIFO order.
+
         """
         if init is not _sentinel:
             acc = cast(T, init)
