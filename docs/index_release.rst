@@ -1,5 +1,5 @@
 pythonic-fp-splitends
----------------------
+=====================
 
 Project
 `pythonic-fp-splitends <https://pypi.org/project/pythonic-fp-splitends/>`_
