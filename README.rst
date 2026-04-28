@@ -20,11 +20,15 @@ between themselves.
 
 Part of the
 `pythonic-fp
-<https://grscheller.github.io/pythonic-fp/homepage/html/>`_
+<https://grscheller.github.io/pythonic-fp/>`_
 PyPI projects.
 
 Documentation
 -------------
+
+Documentation and other links for this project are hosted on
+`GitHub Pages
+<https://grscheller.github.io/pythonic-fp/projects/splitends.html>`_.
 
 Documentation for this project is hosted on
 `GitHub Pages
