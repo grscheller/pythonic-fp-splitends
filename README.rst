@@ -28,7 +28,7 @@ Documentation
 
 Documentation for this project is hosted on
 `GitHub Pages
-<https://grscheller.github.io/pythonic-fp-splitends>`_.
+<https://grscheller.github.io/pythonic-fp-splitends/development/html/>`_.
 
 Copyright and License
 ---------------------
