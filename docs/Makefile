@@ -17,9 +17,6 @@ TEMPLATEDIR   = source/_templates
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS)
 
-Makefile:
-	mkdir -p $(STATICDIR) $(TEMPLATEDIR)
-
 setup_devel:
 	rm -rf "$(BUILDDIR)"/development
 	cp index_devel.rst "$(SOURCEDIR)"/index.rst
@@ -48,6 +45,7 @@ clean_custom: clean_source
 	@rm -rf "$(BUILDDIR)"/custom
 
 clean: clean_devel clean_release clean_custom
+	rmdir --ignore-fail-on-non-empty $(BUILDDIR) 2>/dev/null
 	@echo Removed all doc build artifacts.
 
 .PHONY: help Makefile
