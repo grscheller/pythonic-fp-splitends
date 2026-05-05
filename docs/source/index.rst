@@ -2,12 +2,12 @@ pythonic-fp-splitends
 =====================
 
 Project
-`pythonic-fp-splitends <https://pypi.org/project/pythonic-fp-splitends/>`_
+`Pypythonic-fp-Splitends <https://pypi.org/project/pythonic-fp-splitends/>`_
 one of the
 `Pythonic FP <https://grscheller.github.io/pythonic-fp/>`_
 PyPI projects.
 
-**Custom PyPI 0.0.0 release**
+|RELEASE_STRING|
 
 .. toctree::
     :caption: Overview
