@@ -17,6 +17,12 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
+Development Status Reappraisal - 2026-05-05
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Maintainer appraised the Development Status for
+pythonic-fp-splitends to be ``"3 - Alpha"``.
+
 PyPI 2.0.2 - 2026-01-22
 ~~~~~~~~~~~~~~~~~~~~~~~
 
