@@ -27,12 +27,12 @@
     A ``SplitEnd`` can be duplicated onto a compatible root node. By compatible, the
     new root must contain data that compares as equal to the old root node.
 
-.. admonition:: Future directions
+    .. admonition:: Future directions
 
-    A ``scalp`` is a container of root nodes all of whose contained data must
-    be hashable. The ``scalp.add(d)`` method will return the unique root node with data
-    that compares as equal to ``d``, or create a new root node if such a contained node
-    does not exist.
+        A ``scalp`` is a container of root nodes all of whose contained data must
+        be hashable. The ``scalp.add(d)`` method will return the unique root node with data
+        that compares as equal to ``d``, or create a new root node if such a contained node
+        does not exist.
 
 """
 

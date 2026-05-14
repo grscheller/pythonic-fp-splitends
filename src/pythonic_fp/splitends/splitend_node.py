@@ -13,10 +13,9 @@
 # limitations under the License.
 
 """
-Class SENode
-------------
+.. admonition:: SplitEnd node 
 
-.. admonition:: Used to make inwardly directed bush-like graphs
+    Used to make inwardly directed bush-like graphs.
 
     - designed so multiple splitends can safely share the same data
     - nodes always contain data
@@ -51,8 +50,12 @@ class SENode[D]:
 
     def __init__(self, data: D, prev: Self | _Sentinel = _sentinel) -> None:
         """
-        :param data: Nodes always contain data of type ``D``.
-        :param prev: Link to previous node. Points to ``self`` if a root node.
+        .. admonition:: init
+
+            :param data: Nodes always contain data of type ``D``.
+            :param prev: Link to previous node, points to ``self``
+                         if a root node.
+
         """
         self._data = data
         if prev is not _sentinel:
@@ -62,11 +65,20 @@ class SENode[D]:
 
     def __bool__(self) -> bool:
         """
-        :returns: ``True`` if ``SENode`` is not a root node.
+        .. admonition:: bool
+
+            :returns: ``True`` only if ``SENode`` is not a root node.
+
         """
         return self._prev is not self
 
     def __iter__(self) -> Iterator[D]:
+        """
+        .. admonition:: iter
+
+            :yields: Node date until and including root node.
+
+        """
         node = self
         while node:
             yield node._data
@@ -75,8 +87,18 @@ class SENode[D]:
 
     def __eq__(self, other: object) -> bool:
         """
-        Two ``SENodes`` nodes are equal if their previous nodes are the
-        same object and their data compare as equal.
+        .. admonition:: equality comparison
+
+            Two ``SENodes`` nodes are equal if their previous nodes
+            are the same object and their data compare as equal.
+
+            :param other: 
+            :returns: ``True`` if ``other`` is a SplitEnd which compares
+                      as equal to ``self`` as described above.
+
+            .. note::
+
+                Will be useful when consolidating SplitEnds.
 
         """
         if not isinstance(other, type(self)):
@@ -88,35 +110,43 @@ class SENode[D]:
             return True
         return False
 
-    def both(self) -> tuple[D, Self]:
-        """Peak at data and previous node, if a root then data and self.
-
-        :returns: tuple of type tuple[D, SENode[D]]
-
-        """
-        return self._data, self._prev
-
     def data(self) -> D:
-        """Peak at data.
+        """
+        .. admonition:: peak at data in SENode
 
-        :returns: The data stored in the ``SENode``.
+            :returns: The data stored in the ``SENode``.
 
         """
         return self._data
 
     def prev(self) -> Self:
-        """Peak at previous node.
+        """
+        .. admonition:: peak at previous node
 
-        :returns: The previous node stored in the ``SENode``.
+            :returns: The previous node stored in the ``SENode``.
 
         """
         return self._prev
 
-    def push(self, data: D) -> Self:
-        """Create a new ``SENode[D]``.
+    def both(self) -> tuple[D, Self]:
+        """
+        .. admonition:: both data and previous node
 
-        :param data: Data for new node to contain.
-        :returns: New ``SENode`` whose previous node is the current node.
+            Peak at data and previous node,
+            if a root then data and ``self``.
+
+            :returns: Tuple of type ``tuple[D, SENode[D]]``
+
+        """
+        return self._data, self._prev
+
+    def push(self, data: D) -> Self:
+        """
+        .. admonition:: push date to create  new ``SENode[D]``
+
+            :param data: Data for new node to contain.
+            :returns: New ``SENode`` whose previous node is
+                      the current node.
 
         """
         return cast(Self, SENode(data, self))
@@ -127,11 +157,16 @@ class SENode[D]:
     def fold[T](self, f: Callable[[T, D], T], init: T) -> T: ...
 
     def fold[T](self, f: Callable[[T, D], T], init: T | _Sentinel = _sentinel) -> T:
-        """Fold data across linked nodes with a function..
+        """
+        .. admonition:: fold
 
-        :param f: Folding function, first argument is for accumulated value.`
-        :param init: Optional initial starting value for the fold.
-        :returns: Reduced value folded from end to root in natural LIFO order.
+            Fold data across linked nodes with a function.
+
+            :param f: Folding function, first argument
+                    is for accumulated value.`
+            :param init: Optional initial starting value for the fold.
+            :returns: Reduced value folded from end to root
+                    in natural LIFO order.
 
         """
         if init is not _sentinel:

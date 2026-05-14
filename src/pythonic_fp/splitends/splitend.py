@@ -19,16 +19,20 @@ Class SplitEnds
 .. admonition:: LIFO stacks safely sharing immutable data.
 
     - each ``SplitEnd`` is a very simple stateful (mutable) LIFO stack
-    - data can be either "extended" to or "snipped" off the "end" 
-    - the "root" of a ``SplitEnd``
+    - data can be either "extended" to or "snipped" off the "end"
+    - "root" of a ``SplitEnd`` is embedded in a ``scalp``
 
-      - it is fixed and cannot be removed from the ``SplitEnd``
+      - the root data is immutable
+      - it cannot be split off
 
     - different mutable split ends can safely share the same "tail"
     - each ``SplitEnd`` sees itself as a singularly linked list
     - bush-like datastructures can be formed using multiple ``SplitEnds``
     - the ``SplitEnd.split`` and ``len`` methods are O(1)
-    - in boolean context returns true if the ``SplitEnd`` is not just its "root"
+    - in a boolean context
+
+      - falsy just a "root"
+      - truthy otherwise
 
 """
 
@@ -52,8 +56,10 @@ class SplitEnd[D]:
 
     def __init__(self, *ds: D, root: SENode[D] | _Sentinel = _sentinel) -> None:
         """
-        :param root_data: Irremovable initial data at bottom of stack.
-        :param data: Removable data to be pushed onto splitend stack.
+        .. admonition:: init
+
+            :param root_data: Irremovable initial data at bottom of stack.
+            :param ds: Removable data to be pushed onto splitend stack.
 
         """
         if root is _sentinel:
@@ -78,28 +84,57 @@ class SplitEnd[D]:
         self._end, self._root, self._count = end, root_node, count
 
     def __iter__(self) -> Iterator[D]:
+        """
+        .. admonition:: iter
+
+            Iterate from end to root.
+
+            :yields: data from end to root
+
+        """
         return iter(self._end)
 
     def __reversed__(self) -> Iterator[D]:
+        """
+        .. admonition:: reverse iter
+
+            Iterate from end to root.
+
+            :yields: data from end to root
+
+        """
         return reversed(list(self))
 
     def __bool__(self) -> bool:
         """
-        :returns: ``True`` is ``SplitEnd`` is not just its root node.
+        .. admonition:: bool
+
+            :returns: ``True`` if ``SplitEnd`` is not just its root node.
 
         """
         return bool(self._end)
 
     def __len__(self) -> int:
+        """
+        .. admonition:: len
+
+            :returns: The number of nodes on the ``Splitend``.
+
+        """
         return self._count
 
-    def __repr__(self) -> str:
-        return 'SplitEend(' + ', '.join(map(repr, reversed(self))) + ')'
-
-    def __str__(self) -> str:
-        return '>< ' + ' -> '.join(map(str, self)) + ' ||'
-
     def __eq__(self, other: object, /) -> bool:
+        """
+        .. admonition:: equality comparison
+
+            Efficiently compare two ``SplitEnds``.
+
+            :returns: ``True`` only if ``other`` is also a ``Splitend``
+                      whose corresponding data to ``self`` compares as
+                      equal and both share the same root node.
+                      Otherwise ``False``.
+
+        """
         if not isinstance(other, type(self)):
             return False
 
@@ -120,11 +155,54 @@ class SplitEnd[D]:
                 right = right.prev()
         return True
 
-    def cut(self, num: int | None = None) -> tuple[D, ...]:
-        """Cut data off end of ``SplitEnd``.
+    def __repr__(self) -> str:
+        """
+        .. admonition:: repr string
 
-        :param num: Optional number of nodes to cut, default is entire stack.
-        :returns: Tuple of data cut off from end.
+            Construct string to reproduce the ``SplitEnd``.
+            TODO: Fix, does not include root node.
+
+            :returns: String to reproduce the ``SplitEnd``.
+
+        """
+        return 'SplitEend(' + ', '.join(map(repr, reversed(self))) + ')'
+
+    def __str__(self) -> str:
+        """
+        .. admonition:: user string
+
+            Construct string meaningful to an end user.
+            Does not give root node info.
+
+            :returns: String to reproduce the ``SplitEnd``.
+
+        """
+        return '>< ' + ' -> '.join(map(str, self)) + ' ||'
+
+    def snip(self) -> D:
+        """
+        .. admonition:: cut just tip
+
+            :returns: Data from snipped tip,
+                    just return root data if at root.
+
+        """
+        if self._count > 1:
+            data, self._end, self._count = self._end.both() + (self._count - 1,)
+        else:
+            data = self._end.data()
+
+        return data
+
+    def cut(self, num: int | None = None) -> tuple[D, ...]:
+        """
+        .. admonition:: Cut data off end of SplitEnd
+
+            Pop "cut" data off Split, just copy root data.
+
+            :param num: Optional number of nodes to cut,
+                        default is entire stack.
+            :returns: Tuple of data cut off from end towards root.
 
         """
         if num is None or num > self._count:
@@ -147,10 +225,13 @@ class SplitEnd[D]:
         return data
 
     def extend(self, *ds: D) -> None:
-        """Add data onto the tip of the SplitEnd. Like adding a hair
-        extension.
+        """
+        .. admonition:: extend SplitEnd with data
 
-        :param ds: data to extend the splitend
+            Add data onto the tip of the SplitEnd. Like adding
+            a hair extension.
+
+            :param ds: data to extend the splitend
 
         """
         for d in ds:
@@ -158,37 +239,48 @@ class SplitEnd[D]:
             self._end, self._count = node, self._count + 1
 
     def peak(self) -> D:
-        """Return the data at end (top) of SplitEnd without consuming it.
+        """
+        .. admonition:: peak at end
 
-        :returns: The data at the end of the SplitEnd.
+            Return the data at end (top) of the SplitEnd
+            without consuming it.
+
+            :returns: The data at the end (tip) of the SplitEnd.
 
         """
         return self._end.data()
 
     def root(self) -> SENode[D]:
         """
-        :returns: The root SENode node of the SplitEnd.
+        .. admonition:: get root
+
+            :returns: The root SENode node of the SplitEnd.
 
         """
         return self._root
 
     def reroot(self, root: SENode[D]) -> 'SplitEnd[D]':
-        """Create a brand new SplitEnd with the same data but different root.
+        """
+        .. admonition:: re-root SplitEnd
 
-        .. note::
+            Create a brand new SplitEnd with the same data but different root.
 
-            Two nodes are compatible root nodes if and only if
+            :returns: New SplitEnd with the same data
+                      and the new ``root``.
+            :raises ValueError: If new and original root nodes
+                                are not compatible.
 
-            - they are both actually root nodes
+            .. note::
 
-              - which implies that their previous nodes are themselves
+                Two nodes are compatible root nodes if and only if
 
-            - their data compare as equal
+                - they are both actually root nodes
 
-              - comparing by identity is too strong for some use cases
+                - which implies that their previous nodes are themselves
 
-        :returns: New SplitEnd with the same data and the new ``root``.
-        :raises ValueError: If new and original root nodes are not compatible.
+                - their data compare as equal
+
+                - comparing by identity is too strong
 
         """
         if not root:
@@ -205,23 +297,14 @@ class SplitEnd[D]:
 
         return SplitEnd(*lifo, root = root)
 
-    def snip(self) -> D:
-        """Snip data off tip of SplitEnd. Just return data if tip is root.
-
-        :returns: Data snipped off tip, just return root data if at root.
-
-        """
-        if self._count > 1:
-            data, self._end, self._count = self._end.both() + (self._count - 1,)
-        else:
-            data = self._end.data()
-
-        return data
-
     def split(self, *ds: D) -> 'SplitEnd[D]':
-        """Split the end and add more data.
+        """
+        .. admonition:: split
 
-        :returns: New instance, same data nodes plus additional ones on end.
+            Split the end and add more data.
+
+            :returns: New instance, same data nodes plus
+                      additional ones on end. Same root node.
 
         """
         se: SplitEnd[D] = SplitEnd(self._root.data())
@@ -235,11 +318,16 @@ class SplitEnd[D]:
     def fold[T](self, f: Callable[[T, D], T], init: T) -> T: ...
 
     def fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
-        """Reduce with a function, folding from tip to root.
+        """
+        .. admonition:: fold
 
-        :param f: Folding function, first argument is for the accumulator.
-        :param init: Optional initial starting value for the fold.
-        :returns: Reduced value folding from tip to root in natural LIFO order.
+            Reduce with a function, folding from tip to root.
+
+            :param f: Folding function, first argument
+                      is for the accumulator.
+            :param init: Optional initial starting value for the fold.
+            :returns: Reduced value folding from tip to root
+                      in natural LIFO order.
 
         """
         if init is None:
@@ -252,11 +340,15 @@ class SplitEnd[D]:
     def rev_fold[T](self, f: Callable[[T, D], T], init: T) -> T: ...
 
     def rev_fold[T](self, f: Callable[[T, D], T], init: T | None = None) -> T:
-        """Reduce with a function, fold from root to tip.
+        """
+        .. admonition:: reverse fold
 
-        :param f: Folding function, first argument is for the accumulator.
-        :param init: Optional initial starting value for the fold.
-        :returns: Reduced value folding from root to tip.
+            Reduce with a function, fold from root to tip.
+
+            :param f: Folding function, first argument
+                      is for the accumulator.
+            :param init: Optional initial starting value for the fold.
+            :returns: Reduced value folding from root to tip.
 
         """
         if init is None:

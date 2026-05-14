@@ -17,6 +17,11 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
+PyPI 2.0.3 - 2026-05-13
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- Documentation now in maintenance mode.
+
 Development Status Reappraisal - 2026-05-05
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

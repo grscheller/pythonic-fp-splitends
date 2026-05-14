@@ -5,8 +5,8 @@
 #  - later needs to agree with pyproject.toml
 PROJECT_NAME = Splitends
 PYPI_NAME = splitends
-RELEASE_VERSION = 2.0.2
-DEVEL_VERSION = 2.0.3
+RELEASE_VERSION = 2.0.3
+DEVEL_VERSION = 2.0.4
 CUSTOM_VERSION = 0.0.0
 
 SPHINXOPTS ?=
