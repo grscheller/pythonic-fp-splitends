@@ -29,7 +29,7 @@ dependencies = [
   "pythonic-fp-iterables>=5.1.3",
   "pythonic-fp-queues>=5.1.1",
 ]
-dynamic = ["description"]
+description = "Mutable stack datastructures that can safely share data."
 
 [project.urls]
 Changelog = "https://github.com/grscheller/pythonic-fp-splitends/blob/main/CHANGELOG.rst"
@@ -53,17 +53,8 @@ warn_redundant_casts = true
 warn_return_any = true
 warn_unused_configs = true
 
-[tool.pylsp-mypy]
-enabled = true
-live-mode = true
-dmypy = false
-strict = true
-report_progress = true
-
 [tool.pytest]
-addopts = [
-  "-ra",
-]
+addopts = ["-ra"]
 consider_namespace_packages = true
 testpaths = ["tests/"]
 
