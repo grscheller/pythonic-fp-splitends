@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "pythonic-fp-splitends"
-version = "3.0.0"
+version = "3.1.0"
 readme = "README.rst"
 requires-python = ">=3.13"
 authors = [
@@ -32,8 +32,7 @@ dependencies = [
 description = "Mutable stack datastructures that can safely share data."
 
 [project.urls]
-Changelog = "https://github.com/grscheller/pythonic-fp-splitends/blob/main/CHANGELOG.rst"
-Documentation = "https://grscheller.github.io/pythonic-fp/projects/splitends.html"
+Changelog = "https://github.com/grscheller/pythonic-fp-splitends/blob/main/CHANGELOG.md"
 Homepage = "https://grscheller.github.io/pythonic-fp/"
 Source = "https://github.com/grscheller/pythonic-fp-splitends"
 
