@@ -6,7 +6,6 @@ between themselves.
 
 PyPI project
 [pythonic-fp.splitends](https://pypi.org/project/pythonic-fp-splitends/).
-
 Part of the
 [pythonic-fp](https://grscheller.github.io/pythonic-fp/)
 PyPI projects.
