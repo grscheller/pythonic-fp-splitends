@@ -11,7 +11,7 @@ Strict 3 digit semantic versioning adopted 2025-05-19.
 - **MINOR** version incremented for backward compatible added functionality
 - **PATCH** version incremented for backward compatible bug fixes
 
-See `Semantic Versioning 2.0.0 <https://semver.org>`_.
+See [Semantic Versioning 2.0.0](https://semver.org).
 
 ## Releases and Important Milestones
 
@@ -90,7 +90,7 @@ First release under dtools.datastructures name.
 
 Removed docs from repo. Documentation
 for all grscheller namespace projects maintained
-`here <https://grscheller.github.io/grscheller-pypi-namespace-docs/>`_.
+[here](https://grscheller.github.io/grscheller-pypi-namespace-docs/).
 
 ### PyPI 0.21.0 - 2024-08-20
 
@@ -160,7 +160,7 @@ Preparing to support PEP 695 generics. Devel environment only.
 
 Preparing to add TypeVars
 
-- tests working with grscheller.circular-array >= 3.0.0, \<3.2
+- tests working with `grscheller.circular-array >= 3.0.0, < 3.2`
   - lots of mypy complaints
   - first version using TypeVars will be 0.15.0.0
 
