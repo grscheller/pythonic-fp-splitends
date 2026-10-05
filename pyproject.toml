@@ -7,7 +7,7 @@ name = "pythonic-fp-splitends"
 version = "3.1.0"
 description = "Mutable stack datastructures that can safely share data."
 readme = "README.md"
-requires-python = ">=3.13"  # syntactic floor: known to SyntaxError below this
+requires-python = ">=3.14"  # floor: PEP 649/749 deferred annotations — class-level self-reference possible NameErrors on <3.14
 authors = [
   { name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" },
 ]
@@ -22,7 +22,8 @@ classifiers = [
   "Intended Audience :: Developers",
   "License :: OSI Approved :: Apache Software License",
   "Operating System :: OS Independent",
-  "Programming Language :: Python :: 3.14",  # tested: pytest test suite successful
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
   "Typing :: Typed",
 ]
 dependencies = [
@@ -42,9 +43,6 @@ docs = [
   "furo>=2025.12.19",
   "sphinx>=9.1",
 ]
-pub = [
-  "flit",
-]
 test = [
   "pytest>=8.4.1",
 ]
@@ -56,6 +54,11 @@ name = "pythonic_fp.splitends"
 exclude = [
   "docs/",
   "tests/",
+  "**/.mypy_cache/",
+  "**/.ruff_cache/",
+  "**/.pytest_cache/",
+  "**/__pycache__/",
+  "**/.dmypy.json",
 ]
 
 [tool.pytest]
