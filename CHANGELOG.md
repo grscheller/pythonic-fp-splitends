@@ -3,28 +3,38 @@
 PyPI **pythonic-fp.splitends** project. Allows multiple LIFO stacks to
 safely share data between themselves.
 
-## Semantic Versioning
+## Release Versioning
 
-Strict 3 digit semantic versioning adopted 2025-05-19.
+A tiered strict 3 digit semantic versioning will be used
 
-- **MAJOR** version incremented for incompatible API changes
-- **MINOR** version incremented for backward compatible added functionality
-- **PATCH** version incremented for backward compatible bug fixes
+- **MAJOR** incremented for incompatible API changes across Pythonic FP libraries
+- **MINOR** incremented for backward compatible added functionality
+- **PATCH** incremented for backward compatible bug fixes
 
-See [Semantic Versioning 2.0.0](https://semver.org).
+All versions with the same major release numbers should be consistent
+with each other. Note that lower floors will still be used.
 
 ## Releases and Important Milestones
 
+### PyPI release 6.0.0 - 2026-10-TBA
+
+No substantive changes were made to this library. Considering more work
+before the pythonic-fp `6.0.0` coordinated release.
+
+Going forward, consistent releases of the Pythonic FP libraries will
+share a common major release number. Will use caps to keep the major
+release lines from mixing.
+
 ### PyPI release 3.1.0 - 2026-10-10
 
-Put <6 caps on dependencies, all pythonic-fp projects will be bumped
-up to the 6.0.0 release level, if not already at the 6.x.y level.
-The next pythonic-fp release will be 6.0.0 to track these for
+Put `<6` caps on dependencies, all pythonic-fp projects will be bumped
+up to the `6.0.0` release level, if not already at the `6.x.y` level.
+The next pythonic-fp release will be `6.0.0` to track these for
 integration testing.
 
 ### PyPI 2.0.3 - 2026-05-13
 
-- Documentation now in maintenance mode.
+Documentation now in maintenance mode.
 
 ### Development Status Reappraisal - 2026-05-05
 
@@ -45,8 +55,8 @@ Docs problems with previous commit.
 
 ### PyPI 1.0.1 - 2025-09-09
 
-Increased required versions fptools  >= 5.1.0 
-Increased required versions iterables >= 5.1.0 
+- Increased required versions fptools >= 5.1.0 
+- Increased required versions iterables >= 5.1.0 
 
 ### PyPI 1.0.0 - 2025-08-02
 
