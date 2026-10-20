@@ -27,9 +27,12 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
-  "pythonic-fp-fptools>=6.2",
-  "pythonic-fp-iterables>=6",
-  "pythonic-fp-queues>=6",
+  # "pythonic-fp-fptools>=6.2",
+  # "pythonic-fp-iterables>=6",
+  # "pythonic-fp-queues>=6",
+  "pythonic-fp-fptools",
+  "pythonic-fp-iterables",
+  "pythonic-fp-queues",
 ]
 
 [project.urls]
