@@ -37,8 +37,8 @@ dependencies = [
 
 [project.urls]
 Changelog = "https://github.com/grscheller/pythonic-fp-splitends/blob/main/CHANGELOG.md"
-Documentation ="https://grscheller.github.io/pythonic-fp-splitends/release/html/"
-Homepage = "https://grscheller.github.io/pythonic-fp/"
+Documentation ="https://grscheller.github.io/pythonic-fp-splitends"
+Homepage = "https://grscheller.github.io/pythonic-fp"
 Source = "https://github.com/grscheller/pythonic-fp-splitends"
 
 [dependency-groups]

@@ -7,22 +7,22 @@ between themselves.
 PyPI project
 [pythonic-fp.splitends](https://pypi.org/project/pythonic-fp-splitends/).
 Part of the
-[pythonic-fp](https://grscheller.github.io/pythonic-fp/)
+[pythonic-fp](https://grscheller.github.io/pythonic-fp)
 PyPI projects.
 
 ## Documentation
 
 Documentation and other links for this project are hosted on
-[GitHub Pages](https://grscheller.github.io/pythonic-fp/projects/splitends.html).
+[GitHub Pages](https://grscheller.github.io/pythonic-fp-splitends).
 
-- each ``SplitEnd`` is a very simple stateful (mutable) LIFO stack
+- each `SplitEnd` is a very simple stateful (mutable) LIFO stack
 - data can be "extended" to or "snipped" off of the end (tip)
-- the "root" value of a ``SplitEnd`` is fixed and cannot be "snipped"
+- the "root" value of a `SplitEnd` is fixed and cannot be "snipped"
 - different mutable split ends can safely share the same "tail"
-- each ``SplitEnd`` sees itself as a singularly linked list
-- bush-like datastructures can be formed using multiple ``SplitEnds``
+- each `SplitEnd` sees itself as a singularly linked list
+- bush-like datastructures can be formed using multiple `SplitEnds`
 - the ``SplitEnd`` copy method and ``len`` are O(1)
-- in boolean context returns true if the ``SplitEnd`` is not just a "root"
+- in boolean context returns true if the `SplitEnd` is not just a "root"
 
 ## Copyright and License
 
