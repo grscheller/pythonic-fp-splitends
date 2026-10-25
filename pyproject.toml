@@ -7,7 +7,7 @@ name = "pythonic-fp-splitends"
 version = "6.0.0"
 description = "Mutable stack datastructures that can safely share data."
 readme = "README.md"
-requires-python = ">=3.14"  # floor: PEP 649/749 deferred annotations — class-level self-reference possible NameErrors on <3.14
+requires-python = ">=3.14"  # floor: PEP 649/749 deferred annotations — class-level self-reference NameErrors on <3.14
 authors = [
   { name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" },
 ]
@@ -27,12 +27,9 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
-  # "pythonic-fp-fptools>=6.2",
-  # "pythonic-fp-iterables>=6",
-  # "pythonic-fp-queues>=6",
-  "pythonic-fp-fptools",
-  "pythonic-fp-iterables",
-  "pythonic-fp-queues",
+  "pythonic-fp-fptools>=6.2,<7",
+  "pythonic-fp-iterables>=6,<7",
+  "pythonic-fp-queues>=6,<7",
 ]
 
 [project.urls]
@@ -95,3 +92,8 @@ docstring-quotes = "double"
 [tool.ruff.format]
 quote-style = "single"
 docstring-code-line-length = 72
+
+[tool.uv.sources]
+pythonic-fp-fptools = { path = "../pythonic-fp-fptools", editable = true }
+pythonic-fp-iterables = { path = "../pythonic-fp-iterables", editable = true }
+pythonic-fp-queues = { path = "../pythonic-fp-queues", editable = true }
