@@ -37,10 +37,12 @@ Class SplitEnds
 """
 
 from collections.abc import Callable, Iterator
-from typing import cast, Final, overload
+from typing import Final, cast, overload
+
 from pythonic_fp.gadgets.sentinels.flavored import Sentinel
-from pythonic_fp.iterables.folding import reduce_left, fold_left
+from pythonic_fp.iterables.folding import fold_left, reduce_left
 from pythonic_fp.queues.lifo import LIFOQueue
+
 from .splitend_node import SENode
 
 __all__ = ['SplitEnd']
@@ -52,7 +54,7 @@ _sentinel: Final[_Sentinel] = Sentinel(_secret_value)
 
 
 class SplitEnd[D]:
-    __slots__ = '_end', '_root', '_count'
+    __slots__ = '_count', '_end', '_root'
 
     def __init__(self, *ds: D, root: SENode[D] | _Sentinel = _sentinel) -> None:
         """
@@ -259,7 +261,7 @@ class SplitEnd[D]:
         """
         return self._root
 
-    def reroot(self, root: SENode[D]) -> 'SplitEnd[D]':
+    def reroot(self, root: SENode[D]) -> SplitEnd[D]:
         """
         .. admonition:: re-root SplitEnd
 
@@ -297,7 +299,7 @@ class SplitEnd[D]:
 
         return SplitEnd(*lifo, root = root)
 
-    def split(self, *ds: D) -> 'SplitEnd[D]':
+    def split(self, *ds: D) -> SplitEnd[D]:
         """
         .. admonition:: split
 

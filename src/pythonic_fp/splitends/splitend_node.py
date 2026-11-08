@@ -36,7 +36,8 @@
 """
 
 from collections.abc import Callable, Iterator
-from typing import cast, Final, overload, Self
+from typing import Final, Self, cast, overload
+
 from pythonic_fp.gadgets.sentinels.flavored import Sentinel
 
 __all__ = ['SENode']
@@ -106,9 +107,7 @@ class SENode[D]:
 
         if self._prev is not other._prev:
             return False
-        if self._data == other._data:
-            return True
-        return False
+        return self._data == other._data
 
     def data(self) -> D:
         """
@@ -119,7 +118,7 @@ class SENode[D]:
         """
         return self._data
 
-    def prev(self) -> Self:
+    def prev(self) -> SENode[D]:
         """
         .. admonition:: peak at previous node
 
@@ -128,7 +127,7 @@ class SENode[D]:
         """
         return self._prev
 
-    def both(self) -> tuple[D, Self]:
+    def both(self) -> tuple[D, SENode[D]]:
         """
         .. admonition:: both data and previous node
 
